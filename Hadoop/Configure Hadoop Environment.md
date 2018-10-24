@@ -1,5 +1,11 @@
 # 修改配置文件
 
+
+export HADOOP_HOME=/usr/local/hadoop-2.6.0-cdh5.9.3
+export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
+export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
+
+
 ## hadoop-env.sh
 文件位置：
 ```
@@ -63,6 +69,8 @@ sbin/start-dfs.sh
 ```
 sbin/stop-dfs.sh
 ```
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTMyNDMyMTk3XX0=
+eyJoaXN0b3J5IjpbODEzMTY3NzA1LDUzMjQzMjE5N119
 -->
