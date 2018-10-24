@@ -6,6 +6,8 @@ export HADOOP_CONF_DIR=$HADOOP_HOME/etc/hadoop
 export PATH=$PATH:$HADOOP_HOME/bin:$HADOOP_HOME/sbin
 ```
 
+something changed
+
 ## hadoop-env.sh
 文件位置：
 ```
@@ -73,5 +75,5 @@ sbin/stop-dfs.sh
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTE0NjkxMTI3XX0=
+eyJoaXN0b3J5IjpbMTgzNDYwMjg1N119
 -->
