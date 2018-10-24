@@ -1,4 +1,18 @@
-# 修改配置文件
+# 修改配置文件Configure Hadoop
+
+## Download
+
+View the page `http://archive.cloudera.com/cdh5/cdh/5/` and select a version, such as `hadoop-2.6.0-cdh5.15.0.tar.gz` :
+```
+wget http://archive.cloudera.com/cdh5/cdh/5/hadoop-2.6.0-cdh5.15.0.tar.gz
+```
+
+copy and uncompress to `/usr/local/` :
+```
+cp hadoop-2.6.0-cdh5.15.0.tar.gz /usr/local/hadoop-2.6.0-cdh5.15.0.tar.gz
+
+tar -zxvf /usr/local/hadoop-2.6.0-cdh5.15.0.tar.gz
+```
 
 ```
 export HADOOP_HOME=/usr/local/hadoop-2.6.0-cdh5.9.3
@@ -75,5 +89,5 @@ sbin/stop-dfs.sh
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTgzNDYwMjg1N119
+eyJoaXN0b3J5IjpbMTEyNDExMjgzMywxODM0NjAyODU3XX0=
 -->
