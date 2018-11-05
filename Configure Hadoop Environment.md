@@ -1,6 +1,6 @@
-# Configure Hadoop
+# 安装配置 Hadoop
 
-## Download
+## 下载
 
 View the page `http://archive.cloudera.com/cdh5/cdh/5/` and select a version, such as `hadoop-2.6.0-cdh5.15.0.tar.gz` :
 ```
@@ -12,6 +12,14 @@ copy and uncompress to `/usr/local/` :
 cp hadoop-2.6.0-cdh5.15.0.tar.gz /usr/local/hadoop-2.6.0-cdh5.15.0.tar.gz
 
 tar -zxvf /usr/local/hadoop-2.6.0-cdh5.15.0.tar.gz
+```
+
+# 安装配置 Hive
+
+## 下载
+
+```
+wget http://archive.cloudera.com/cdh5/cdh/5/hive-1.1.0-cdh5.15.0.tar.gz
 ```
 
 ```
@@ -89,5 +97,5 @@ sbin/stop-dfs.sh
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE3MjYwOTEyMDRdfQ==
+eyJoaXN0b3J5IjpbLTEzMDI2MjY2MjRdfQ==
 -->
