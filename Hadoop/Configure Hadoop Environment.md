@@ -1,6 +1,6 @@
-# 安装配置 Hadoop
+# 安装配置修改配置文件Configure Hadoop
 
-## 下载
+## 下载Download
 
 View the page `http://archive.cloudera.com/cdh5/cdh/5/` and select a version, such as `hadoop-2.6.0-cdh5.15.0.tar.gz` :
 ```
@@ -97,5 +97,6 @@ sbin/stop-dfs.sh
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzMDI2MjY2MjQsMTgzNDYwMjg1N119
+eyJoaXN0b3J5IjpbLTEzMjk1NjY0MzUsLTEzMDI2MjY2MjQsMT
+gzNDYwMjg1N119
 -->
