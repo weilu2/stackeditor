@@ -258,6 +258,28 @@ org.apache.hadoop.yarn.exceptions.YarnRuntimeException: java.net.NoRouteToHostEx
 问题还是一样的问题，无法和 ResourceManager 节点进行通讯，yarn 使用的是 8031 端口，设置一下，然后重启集群。
 
 # 部署 Zookeeper
+四台机器中，仅在 `weilu132/weilu135/weilu151`三台上部署 zookeeper。
+
+## 开放端口
+
+```
+firewall-cmd --add-port=2888/tcp --permanent
+firewall-cmd --add-port=3888/tcp --permanent
+
+firewall-cmd --add-port=2181/tcp --permanent
+
+firewall-cmd --add-port=16010/tcp --permanent
+firewall-cmd --add-port=16020/tcp --permanent
+
+firewall-cmd --add-port=60000/tcp --permanent
+firewall-cmd --add-port=50010/tcp --permanent
+firewall-cmd --add-port=60020/tcp --permanent
+
+firewall-cmd --add-port=60010/tcp --permanent
+firewall-cmd --add-port=60030/tcp --permanent
+firewall-cmd --reload
+```
+
 
 将安装包拷贝到 `/usr/local/` 目录下，解压：
 ```
@@ -299,6 +321,34 @@ server.3=weilu151:2888:3888
 ## myid
 在每台 ZooKeeper 节点的数据目录（dataDir目录）下存放一个 `myid` 文件，文件中存放一个集群中唯一的ID，表明这台机器的ID，ID范围是 `1~255`
 
+## 分发配置
+将 zoo.cfg 和 myid 分发到其他及台机器上，对应修改 myid。
+
+```
+scp zoo.cfg root@weilu135:/usr/local/zookeeper-3.4.5-cdh5.15.0/conf
+```
+分发目录时增加参数 `-r`
+```
+scp -r zookeeperDataDir/ root@weilu151:/usr/local/zookeeper-3.4.5-cdh5.15.0/zookeeperDataDir
+```
+
+## 启动 zookeeper
+启动时需要分别在每个节点使用 `bin/zkServer.sh` 脚本启动：
+```
+./zkServer.sh start
+```
+在所有节点启动完成之前，如果使用 `./zkServer.sh status` 查看状态时，会提示
+```
+JMX enabled by default
+Using config: /usr/local/zookeeper-3.4.5-cdh5.15.0/bin/../conf/zoo.cfg
+Error contacting service. It is probably not running.
+```
+如果都启动之后，再次查看会得到：
+```
+JMX enabled by default
+Using config: /usr/local/zookeeper-3.4.5-cdh5.15.0/bin/../conf/zoo.cfg
+Mode: follower
+```
 
 
 # 部署 HBase
@@ -315,9 +365,24 @@ tar -zxvf hbase-1.2.0-cdh5.15.0.tar.gz
 export JAVA_HOME=/usr/local/jdk1.8.0_181
 ```
 
+配置不使用 HBase 默认自带的 ZooKeeper：
+```
+export HBASE_MANAGES_ZK=false
+```
+
 ## hbase-site.xml
+创建临时文件目录：
+```
+mkdir -p /home/hbase/tmp
+```
+
+配置
 ```
 <configuration>
+    <property>
+        <name>hbase.tmp.dir</name>
+        <value>/home/hbase/tmp</value>
+    </property>
     <property>
         <name>hbase.rootdir</name>
         <value>hdfs://weilu131:9000/hbase</value>
@@ -325,6 +390,19 @@ export JAVA_HOME=/usr/local/jdk1.8.0_181
     <property>
         <name>hbase.cluster.distributed</name>
         <value>true</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>weilu132,weilu135,weilu151</value>
+    </property>
+    
+    <property>
+        <name>hbase.master.info.port</name>
+        <value>60010</value>
+    </property>
+    <property>
+        <name>hbase.regionserver.info.port</name>
+        <value>60030</value>
     </property>
 </configuration>
 ```
@@ -337,18 +415,54 @@ weilu135
 weilu151
 ```
 
-在三台虚拟机上部署
-1、部署 Hadoop 集群，其中包含了 HDFS 和 MapReduce 
+## backup-masters
+在 `conf/backup-masters` 中用来配置备份 master 服务器。
+```
+weilu132
+```
 
-2、在此基础上部署 HBase 集群，其中需要部署 Zookeeper，对 HBase 进行管理
+## 分发配置
+```
+# hbase-env.sh 文件
+scp hbase-env.sh root@weilu132:/usr/local/hbase-1.2.0-cdh5.15.0/conf/
 
-3、然后部署 Hive，提供 对 HBase 的交互式 SQL 查询
+# hbase-site.xml
+scp hbase-site.xml root@weilu132:/usr/local/hbase-1.2.0-cdh5.15.0/conf/
 
-4、然后部署 Spark，提供数据处理功能
+# regionservers
+scp regionservers root@weilu132:/usr/local/hbase-1.2.0-cdh5.15.0/conf/
 
-5、部署 Ambari 对整个集群进行监控
+#backup-masters
+scp backup-masters root@weilu132:/usr/local/hbase-1.2.0-cdh5.15.0/conf/
+```
+
+## 启动服务
+```
+./start-hbase.sh
+```
 
 
+## 验证
+访问：http://192.168.0.131:60010
+
+
+## 问题
+
+### zookeeper.MetaTableLocator: Failed verification of hbase:meta
+
+```
+2018-11-05 22:27:04,735 INFO  [weilu131:60000.activeMasterManager] zookeeper.MetaTableLocator: Failed verification of hbase:meta,,1 at address=weilu135,60020,1541427295657, exception=org.apache.hadoop.hbase.NotServingRegionException: Region hbase:meta,,1 is not online on weilu135,60020,1541428018822
+	at org.apache.hadoop.hbase.regionserver.HRegionServer.getRegionByEncodedName(HRegionServer.java:2997)
+	at org.apache.hadoop.hbase.regionserver.RSRpcServices.getRegion(RSRpcServices.java:1069)
+	at org.apache.hadoop.hbase.regionserver.RSRpcServices.getRegionInfo(RSRpcServices.java:1349)
+	at org.apache.hadoop.hbase.protobuf.generated.AdminProtos$AdminService$2.callBlockingMethod(AdminProtos.java:22233)
+	at org.apache.hadoop.hbase.ipc.RpcServer.call(RpcServer.java:2191)
+	at org.apache.hadoop.hbase.ipc.CallRunner.run(CallRunner.java:112)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:183)
+	at org.apache.hadoop.hbase.ipc.RpcExecutor$Handler.run(RpcExecutor.java:163)
+```
+
+这个问题是 zookeeper 的数据出错导致的，将 zookeeper 集群都停掉，然后将 Datadir目录中除了配置的 `myid` 以外的文件都删掉，然后启动 zookeeper，应该就可以了。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTkyNTU2OTk1Ml19
+eyJoaXN0b3J5IjpbMTMyMTIwMTc4OF19
 -->
