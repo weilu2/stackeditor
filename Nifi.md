@@ -546,13 +546,90 @@ println(Person.newId())
 类和它的伴生对象必须在同一个文件中，并且可以相互访问私有成员
 当单例对象与某个类具有相同的名称时，它被成为这个类的伴生对象
 
+```Scala
+class Person {
+	private val id = Person.newPersonId()
+	private var name = ""
 
+	def this(name : String) {
+		this()
+		this.name = name
+	}
+
+	def info() { println("The id of %s is %d. \n".format(name, id)) }
+}
+
+object Person {
+	private var lastId = 0
+
+	private def newPersonId() = {
+		lastId += 1
+		lastId
+	}
+
+	def main(args : Array[String]) {
+		val person1 = new Person("yz")
+		val person2 = new Person("yj")
+
+		person1.info()
+		person2.info()
+	}
+}
+```
+
+### applay 方法
+
+### update 方法
 
 ## 继承
 
-## 特质
+在子类中重写超类抽象方法时不需要使用 `override` 关键字
+重写一个非抽象方法必须使用 `override` 修饰符
+只有主构造器可以调用超类的主构造器
+可以重写超类中的子段
+
+### 抽象类
+```Scala
+// 抽象类，不能直接实例化
+abstract class Car {
+	// 抽象子段，不需要初始化
+	val carBrand : String
+	// 抽象方法，不需要使用 abstract 关键字
+	def info()
+	def greeting() { println("Welcome to my car!") }
+}
+```
+
+### 继承抽象类
+```Scala
+class BMWCar extends Car {
+	override val carBrand = "BMW"
+	// 重写抽象方法不用加 override
+	def info() {
+		printf("This is a car")
+	}
+
+	// 重写非抽象方法必须使用 override
+	override def greeting() {
+		printf("something")
+	}
+}
+```
+
+## 特质（trait）
+在 Scala 中没有接口的概念，而是提供了 trait，它实现了接口的功能，以及许多其他特性
+trait 是 Scala 中代码重用的基本单元，可以同时拥有抽象方法和具体方法
+在 Scala 中一个类只能继承一个超类，但是可以实现多个 trait，从而拥有 trait 中的方法和字段，实现多重继承。
+
+
+```Scala
+trait CarId {
+	var id : Int
+	def currentId() : Int
+}
+```
 
 ## 模式匹配
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM4NjI1OTU5M119
+eyJoaXN0b3J5IjpbMTY0ODMxMTkxM119
 -->
