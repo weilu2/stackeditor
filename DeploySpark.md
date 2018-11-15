@@ -120,6 +120,37 @@ iflysse151
 iflysse152
 ```
 
+## 配置 history-server
+
+开放Web UI 端口
+```
+firewall-cmd --add-port=18080/tcp --permanent
+firewall-cmd --reload
+```
+创建日志目录：
+```
+/usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -mkdir /spark_logs
+```
+
+### spark-defaults.conf
+这部分配置的是 Spark 写入日志的信息。
+```
+spark.eventLog.enabled  true 
+spark.eventLog.dir      hdfs://iflysse131:9000/spark_logs
+spark.eventLog.compress true
+```
+
+### spark-env.sh
+
+```
+export SPARK_HISTORY_OPTS="-D**spark.history.ui.port**=18080 -D**spark.history.retainedApplications**=10 -D**spark.history.fs.logDirectory**=hdfs://iflysse131:9000/spark_logs"
+```
+
+启动日志服务器
+```
+start-history-server.sh
+```
+
 ## 启动 Spark 集群
 
 ```
@@ -135,64 +166,41 @@ iflysse152
 访问Master：http://192.168.0.131:8080/
 可以看到当前集群的状况。
 
-
-
-
-
-
-
-
-# 内存分配
-
-## Spark Driver 内存
-
-在 `spark-defaults.conf` 文件中通过属性 `spark.driver.memory` 配置
-```
-spark.driver.memory              1g
-```
-
-## Spark Executor 内存
-
-在 `spark-defaults.conf` 文件中通过属性：
-- `spark.executor.memory` ：设置用于运算的基本内存大小
-- `spark.yarn.executor.memorOverhead` ：设置允许超出的内存，默认是基础内存的 7%，最小 `384M`。
-
-在该文件中增加以下内容：
-```
-spark.executor.memory           512m
-spark.yarn.executor.memoryOverhead      384m
-```
-
-# 配置日志
-在配置文件中增加：
-```
-spark.eventLog.enabled           true
-spark.eventLog.dir               hdfs://weilu131:9000/spark-logs
-```
-
-在 HDFS 中创建目录：
-```
-hdfs dfs -mkdir /spark-logs
-```
-
-配置历史数据服务器：
-```
-spark.history.provider          org.apache.spark.deploy.history.FsHistoryProvider
-spark.history.fs.logDirecotry   hdfs://weilu131:9000/spark-logs
-spark.history.fs.update.interval        10s
-spark.history.ui.port                   18080
-```
-
-启动历史服务器：
-```
-/usr/local/spark-2.4.0-bin-hadoop2.6/sbin/start-history-server.sh hdfs://weilu131:9000/spark-logs
+## 启动 spark-shell
 
 ```
+[root@iflysse131 ~]# /usr/local/spark-2.4.0-bin-hadoop2.6/bin/spark-shell 
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [jar:file:/usr/local/spark-2.4.0-bin-hadoop2.6/jars/slf4j-log4j12-1.7.16.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/usr/local/hadoop-2.6.0-cdh5.15.0/share/hadoop/common/lib/slf4j-log4j12-1.7.5.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [org.slf4j.impl.Log4jLoggerFactory]
+18/11/15 15:20:46 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform... using builtin-java classes where applicable
+Setting default log level to "WARN".
+To adjust logging level use sc.setLogLevel(newLevel). For SparkR, use setLogLevel(newLevel).
+Spark context Web UI available at http://iflysse131:4040
+Spark context available as 'sc' (master = yarn, app id = application_1542266210770_0001).
+Spark session available as 'spark'.
+Welcome to
+      ____              __
+     / __/__  ___ _____/ /__
+    _\ \/ _ \/ _ `/ __/  '_/
+   /___/ .__/\_,_/_/ /_/\_\   version 2.4.0
+      /_/
+         
+Using Scala version 2.11.12 (Java HotSpot(TM) 64-Bit Server VM, Java 1.8.0_192)
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> 
+```
+
+同时，在Yarn上可以看到这个Application
 
 # 参考
-[1] 
+[1] http://spark.apache.org/docs/latest/monitoring.html
 [2] https://www.fwqtg.net/%E3%80%90spark%E5%8D%81%E5%85%AB%E3%80%91spark-history-server.html
 [3] https://my.oschina.net/u/3754001/blog/1811243
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODE3OTY2MjcyLDU2ODIxNjI0OV19
+eyJoaXN0b3J5IjpbNTA3MDkyNzk5LDU2ODIxNjI0OV19
 -->
