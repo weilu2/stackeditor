@@ -30,18 +30,16 @@ scala>
 **8080**：Master节点上的端口，提供Web UI
 **8081**：Worker节点上的端口，提供Web UI
 **7077**：Master 与 Worker 通信的端口
-**46599**：Master 与 Worker 通信的端口
 ```
 firewall-cmd --add-port=8080/tcp --permanent
 firewall-cmd --add-port=7077/tcp --permanent
 firewall-cmd --add-port=8081/tcp --permanent
-firewall-cmd --add-port=46599/tcp --permanent
-firewall-cmd --add-port=42206/tcp --permanent
-firewall-cmd --add-port=37217/tcp --permanent
-firewall-cmd --add-port=37882/tcp --permanent
-firewall-cmd --reload
+firewall-cmd --add-port=8030/tcp --permanent
 
+firewall-cmd --add-port=30000-50000/tcp --permanent
+firewall-cmd --reload
 ```
+30000-50000之间的端口是Yarn用来通信的端口，不知道是随机的还是怎么弄的，试出来几十个，干脆就把这个区段都开放了。
 
 ## 下载&解压
 从 [Apache Spark download page](https://spark.apache.org/downloads.html) 下载安装包。在选择安装包类型时，如果是针对某个版本的 Hadoop 的话，可以选择 `Pre-build for Apache Hadoop 2.6`，或 `Pre-build for Apache Hadoop 2.7 and later`。分别是针对 2.6 和 2.7 版本的。或者也可以选择 `Pre-build with user-provided Apache Hadoop`，表示适用于所有版本 Hadoop。
@@ -196,5 +194,5 @@ spark.history.ui.port                   18080
 [2] https://www.fwqtg.net/%E3%80%90spark%E5%8D%81%E5%85%AB%E3%80%91spark-history-server.html
 [3] https://my.oschina.net/u/3754001/blog/1811243
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTY4MjE2MjQ5XX0=
+eyJoaXN0b3J5IjpbODE3OTY2MjcyLDU2ODIxNjI0OV19
 -->
