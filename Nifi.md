@@ -629,7 +629,11 @@ trait CarId {
 }
 ```
 
+## 继承
+
+## 特质
+
 ## 模式匹配
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY0ODMxMTkxM119
+eyJoaXN0b3J5IjpbLTI2NDk3NzkyLDE2NDgzMTE5MTNdfQ==
 -->
