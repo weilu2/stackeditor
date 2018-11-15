@@ -58,6 +58,32 @@ Spark有点：
 
 # RDD
 
+## RDD 执行过程
+1、RDD 读取外部数据进行创建
+
+2、经过一系列转换（Transformation）操作，每次都会产生新的 RDD，提供给下一次转换操作使用
+
+3、最后一个 RDD 经过“动作”操作进行转换，并输出到外部数据源
+
+一般讲一个 DAG 的一系列处理成为一个 Lineage（血缘关系）
+
+## RDD 的依赖关系
+
+### 窄依赖
+
+1、一个父亲 RDD 的一个分区，转换得到一个儿子 RDD 的一个分区
+2、多个父亲 RDD 的若干个分区，转换得到一个儿子 RDD 的一个分区
+
+### 宽依赖
+1、一个父亲 RDD 的一个分区，转换得到多个儿子 RDD 的若干个分区
+
+### Stage 划分
+
+DAG 中进行反向解析，遇到宽依赖就断开，遇到债依赖就把当前 RDD 加入到 Stage 中。将窄依赖尽量划分在同一个 Stage 中，实现流水线计算。
+
+![Stage划分](/A03.png)
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExODEwNzY2NzNdfQ==
+eyJoaXN0b3J5IjpbLTc0OTI1MTQxM119
 -->
