@@ -143,13 +143,15 @@ spark.eventLog.compress true
 ### spark-env.sh
 
 ```
-export SPARK_HISTORY_OPTS="-D**spark.history.ui.port**=18080 -D**spark.history.retainedApplications**=10 -D**spark.history.fs.logDirectory**=hdfs://iflysse131:9000/spark_logs"
+export SPARK_HISTORY_OPTS="-Dspark.history.ui.port=18080 -Dspark.history.retainedApplications=10 -Dspark.history.fs.logDirectory=hdfs://iflysse131:9000/spark_logs"
 ```
 
 启动日志服务器
 ```
-start-history-server.sh
+/usr/local/spark-2.4.0-bin-hadoop2.6/sbin/start-history-server.sh 
 ```
+
+访问日志服务器：http://192.168.0.131:18080
 
 ## 启动 Spark 集群
 
@@ -202,5 +204,5 @@ scala>
 [2] https://www.fwqtg.net/%E3%80%90spark%E5%8D%81%E5%85%AB%E3%80%91spark-history-server.html
 [3] https://my.oschina.net/u/3754001/blog/1811243
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTA3MDkyNzk5LDU2ODIxNjI0OV19
+eyJoaXN0b3J5IjpbMjEwMDA2MDMyNyw1NjgyMTYyNDldfQ==
 -->
