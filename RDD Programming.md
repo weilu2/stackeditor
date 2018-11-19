@@ -436,8 +436,17 @@ aFile.saveAsTextFile("hdfs://weilu131:9000/home/spark/something.txt")
 
 ## HBase 读写
 
+上传 JAR 包
+
+```
+/usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/hbase*.jar /spark_jars
+/usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/guava-12.0.1.jar /spark_jars
+/usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/htrace-core-3.2.0-incubating.jar /spark_jars
+/usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/protobuf-java-2.5.0.jar /spark_jars
+```
+
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDkzNjQ5OTEyXX0=
+eyJoaXN0b3J5IjpbMTQxNjcyNjAwMF19
 -->
