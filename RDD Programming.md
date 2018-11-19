@@ -273,7 +273,7 @@ pairRDD.collect().foreach(println)
 ```
 
 ## reduceByKey(func)
-key 相同，将值生成一个列表
+key 相同，将值按照传入逻辑计算
 ```Scala
 val list = List("Hadoop 2", "Spark 3", "HBase 5", "Spark 6", "Hadoop 1")
 val rdd = sc.parallelize(list)
@@ -336,24 +336,108 @@ res.collect().foreach(println)		// 打印测试：2
 (Hadoop,CompactBuffer(1, 2))
 ```
 
-## values
-
-## mapValues(func)
-
-## keys
+## keys、values
+仅仅把 PairRDD 中的键或者值单独取出来形成一个 RDD
 
 ## sortByKey()
+```Scala
+val list = List("Hadoop 2", "Spark 3", "HBase 5", "Spark 6", "Hadoop 1")
+val rdd = sc.parallelize(list)
+
+val split = (line : String) => {
+    val res = line.split(" ")
+    (res(0), res(1).toInt)
+}
+
+val pairRdd = rdd.map(split)
+
+val res = pairRdd.sortByKey(true)
+res.collect().foreach(println)		// 打印测试：1
+
+val res = pairRdd.sortByKey(false)
+res.collect().foreach(println)		// 打印测试：2
+```
+打印结果：
+```
+# 1
+(HBase,5)
+(Hadoop,2)
+(Hadoop,1)
+(Spark,6)
+(Spark,3)
+
+# 2
+(Spark,3)
+(Spark,6)
+(Hadoop,1)
+(Hadoop,2)
+(HBase,5)
+```
+
+## mapValues(func)
+对 PairRDD 中的每个值进行处理，不影响 key.
+
 
 ## join
+将两个 PairRDD 根据 key 进行连接操作
 
 ## combineByKey
 
+
 # 共享变量
+主要用于节省传输开销。
+当Spark在集群的多个节点上的多个任务上并行运行一个函数时，它会吧函数中涉及到的每个变量在每个任务中生成一个副本。但是，有时需要在多个任务之间共享变量，或者在任务和任务控制节点之间共享变量。
+
+为满足这种需求，Spark提供了两种类型的变量：广播变量（broadcast variables）和累加器（accumulators）。
+广播变量用来把变量在所有节点的内存之间进行共享；
+累加器则支持在所有不同节点之间进行累加计算（比如计数、求和等）
+
+## 广播变量
+允许程序开发人员在每个机器上缓存一个只读变量，而不是在每个机器上的每个任务都生成一个副本。
+Spark的“行动”操作会跨越多个阶段（Stage），对每个阶段内的所有任务所需要的公共数据，Spark会自动进行广播。
+
+可以使用 broadcast() 方法封装广播变量
+```Scala
+val broadcastVar = sc.broadcast(Array(1, 2, 3))
+
+println(broadcastVar.value)
+```
+## 累加器
+Spark 原生支持数值型累加器，可以通过自定义开发对新类型支持的累加器。
+
+### longAccumulator & doubleAccumulator
+Spark 自带长整型和双精度数值累加器，可以通过以上两个方法创建。创建完成之后可以使用 add 方法进行累加操作，但在每个节点上只能进行累加操作，不能读取。只有任务控制节点可以使用 value 方法读取累加器的值。
+
+```Scala
+val accum = sc.longAccumulator("OneAccumulator")
+sc.parallelize(Array(1, 2, 3)).foreach(x => accum.add(x))
+accum.value
+```
 
 # 数据读写
+
+## 文件系统数据读写
+**读写本地文件**
+```Scala
+val aFile = sc.textFile("file:///home/spark/somewords.txt")
+
+// 保存时会生成一个目录，内容被跌倒这个目录中
+aFile.saveAsTextFile("file:///home/spark/something.txt")
+```
+
+
+**读写HDFS文件**
+```Scala
+val aFile = sc.textFile("hdfs://weilu131:9000/home/spark/somewords.txt")
+
+// 保存时会生成一个目录，内容被跌倒这个目录中
+aFile.saveAsTextFile("hdfs://weilu131:9000/home/spark/something.txt")
+```
+
+## HBase 读写
 
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTExMjgzNzk3NzFdfQ==
+eyJoaXN0b3J5IjpbNDkzNjQ5OTEyXX0=
 -->
