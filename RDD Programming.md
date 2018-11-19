@@ -273,18 +273,35 @@ pairRDD.collect().foreach(println)
 ```
 
 ## reduceByKey(func)
+key 相同，将值生成一个列表
 ```Scala
-val list = List("Hadoop", "Hive", "HBase", "Spark", "Sqoop", "Spark")
-val pairRDD = sc.parallelize(list).map(word => (word, 1))
-pairRDD.reduceByKey((a,b) => a+b).collect().foreach(println)
+val list = List("Hadoop 2", "Spark 3", "HBase 5", "Spark 6", "Hadoop 1")
+val rdd = sc.parallelize(list)
+
+val split = (line : String) => {
+    val res = line.split(" ")
+    (res(0), res(1).toInt)
+}
+
+val pairRdd = rdd.map(split)
+pairRdd.collect().foreach(println) // 打印测试:1
+
+val res = pairRdd.reduceByKey((a,b) => a+b)
+res.collect().foreach(println)		// 打印测试：2
 ```
 打印结果：
 ```
-(Hive,1)
-(Sqoop,1)
-(Spark,2)
-(HBase,1)
+// 第一次
+(Hadoop,2)
+(Spark,3)
+(HBase,5)
+(Spark,6)
 (Hadoop,1)
+
+// 第二次
+(Spark,9)
+(HBase,5)
+(Hadoop,3)
 ```
 
 ## groupByKey()
@@ -293,21 +310,30 @@ key 相同，将值生成一个列表
 val list = List("Hadoop 2", "Spark 3", "HBase 5", "Spark 6", "Hadoop 1")
 val rdd = sc.parallelize(list)
 
-def split(value: String): {
-	val pair = value.split(" ")
-	(pair[0], pair[1])
+val split = (line : String) => {
+    val res = line.split(" ")
+    (res(0), res(1).toInt)
 }
-rdd.map((item: String) => (pair = item.split(" "); (pair[0], pair[1]))).collect().foreach(println)
 
-pairRDD.reduceByKey((a,b) => a+b).collect().foreach(println)
+val pairRdd = rdd.map(split)
+pairRdd.collect().foreach(println) // 打印测试:1
+
+val res = pairRdd.groupByKey()
+res.collect().foreach(println)		// 打印测试：2
 ```
 打印结果：
 ```
-(Hive,1)
-(Sqoop,1)
-(Spark,2)
-(HBase,1)
+// 第一次
+(Hadoop,2)
+(Spark,3)
+(HBase,5)
+(Spark,6)
 (Hadoop,1)
+
+// 第二次
+(Spark,CompactBuffer(6, 3))
+(HBase,CompactBuffer(5))
+(Hadoop,CompactBuffer(1, 2))
 ```
 
 ## values
@@ -329,5 +355,5 @@ pairRDD.reduceByKey((a,b) => a+b).collect().foreach(println)
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMwMjA2MTE2N119
+eyJoaXN0b3J5IjpbLTExMjgzNzk3NzFdfQ==
 -->
