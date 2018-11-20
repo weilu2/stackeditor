@@ -440,6 +440,7 @@ aFile.saveAsTextFile("hdfs://weilu131:9000/home/spark/something.txt")
 
 ```
 /usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/hbase*.jar /spark_jars
+
 /usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/guava-12.0.1.jar /spark_jars
 /usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/htrace-core-3.2.0-incubating.jar /spark_jars
 /usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/protobuf-java-2.5.0.jar /spark_jars
@@ -451,5 +452,5 @@ aFile.saveAsTextFile("hdfs://weilu131:9000/home/spark/something.txt")
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTI5NTQxMjUxLDE0MTY3MjYwMDBdfQ==
+eyJoaXN0b3J5IjpbLTMwODQxNTQ2NywxNDE2NzI2MDAwXX0=
 -->
