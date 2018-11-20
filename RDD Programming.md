@@ -445,8 +445,11 @@ aFile.saveAsTextFile("hdfs://weilu131:9000/home/spark/something.txt")
 /usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/hbase-1.2.0-cdh5.15.0/lib/protobuf-java-2.5.0.jar /spark_jars
 ```
 
-`
+```
+/usr/local/hadoop-2.6.0-cdh5.15.0/bin/hdfs dfs -put /usr/local/zookeeper-3.4.5-cdh5.15.0/zookeeper-3.4.5-cdh5.15.0.jar /spark_jars
+
+```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjE0NDIyNDE2MCwxNDE2NzI2MDAwXX0=
+eyJoaXN0b3J5IjpbNTI5NTQxMjUxLDE0MTY3MjYwMDBdfQ==
 -->
