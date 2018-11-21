@@ -115,7 +115,76 @@ COLUMN FAMILIES DESCRIPTION
     REPLICATION_SCOPE => '0'
 }
 ```
+**VERSION**
+表明该列族要保存的数据的版本数量，默认只保存一个版本，通过修改这个值，可以保存多个版本。
+```
+alter 'medicalqa', { NAME => 'question', VERSIONS => 5 }
+```
+
+## 停用表 disable
+停用表之后，对表和数据的操作就无法执行了
+```
+disalbe 'medicalqa'
+```
+
+## 删除表 drop
+
+# 添加数据
+语法：
+```
+put '[tableName]’, '[rowkey]', '[columnFamily]:[column]', '[value]'
+```
+
+示例：
+```
+put 'medicalqa', '00000124-b22a-11e8-add5-b82a72fc006c', 'http:url', 'http://www.120ask.com/question/58865222.htm'
+put 'medicalqa', '00000714-b22a-11e8-add5-b82a72fc006c', 'http:url', 'http://www.120ask.com/question/58865224.htm'
+put 'medicalqa', '00000a7a-b22a-11e8-add5-b82a72fc006c', 'http:url', 'http://www.120ask.com/question/58865225.htm'
+put 'medicalqa', 'fffff80a-b229-11e8-add5-b82a72fc006c', 'http:url', 'http://www.120ask.com/question/58865228.htm'
+put 'medicalqa', 'fffffeb8-b229-11e8-add5-b82a72fc006c', 'http:url', 'http://www.120ask.com/question/58865231.htm'
+```
+
+# 删除
+## delete
+删除单元格数据。
+```
+delete 'medicalqa', '00000a7a-b22a-11e8-add5-b82a72fc006c', 'http:url'
+```
+
+## deleteall
+删除整行数据。
+```
+deleteall 'medicalqa', '00000124-b22a-11e8-add5-b82a72fc006c'
+```
+ 
+# 查询
+在 HBase 中可以使用 `scan` 命令查询，相当于 SQL 中的 select。
+
+## scan
+
+### 查询所有
+```
+scan 'tableName'
+```
+
+### 查询某行开始的数据
+显示 ROWKEY 大于等于的记录。
+```
+scan 'medicalqa', { STARTROW => '00000a7a-b22a-11e8-add5-b82a72fc006c'}
+```
+
+### 查询某行之前的数据
+查询 ROWKEY 到这行之前的数据，不包括这行
+```
+scan 'medicalqa', { ENDROW => '00000714-b22a-11e8-add5-b82a72fc006c'}
+```
+
+## get
+查询某个单元格数据，使用 get 命令。
+```
+ timestamp=1542782426225, value=http://www.120ask.com/question/58865225.htm 
+```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTM0NzkyMjc3MV19
+eyJoaXN0b3J5IjpbMjI1ODM1ODA1XX0=
 -->
