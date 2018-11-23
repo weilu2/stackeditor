@@ -128,6 +128,9 @@ disalbe 'medicalqa'
 ```
 
 ## 删除表 drop
+```
+drop 'medicalqa'
+```
 
 # 添加数据
 语法：
@@ -186,5 +189,5 @@ scan 'medicalqa', { ENDROW => '00000714-b22a-11e8-add5-b82a72fc006c'}
 ```
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjI1ODM1ODA1XX0=
+eyJoaXN0b3J5IjpbMTU2NTQyMDkxXX0=
 -->
