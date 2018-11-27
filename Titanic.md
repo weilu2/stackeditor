@@ -32,6 +32,12 @@ Etc.
 
 ## 数据
 
+数据被分为两组：
+1、训练集（train.csv）
+2、测试集（test.csv）
+
+**训练集**
+用来构建你的机器学习模型。
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA0MjY0Nzg5NV19
+eyJoaXN0b3J5IjpbLTg3NzE3MTM2Ml19
 -->
