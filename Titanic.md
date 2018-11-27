@@ -37,7 +37,12 @@ Etc.
 2、测试集（test.csv）
 
 **训练集**
-用来构建你的机器学习模型。
+用来构建你的机器学习模型。在这个训练集中，我们为每个乘客ID提供了一个对应的结果，用于表示这位乘客是否生还。你的模型需要基于乘客的特征，如乘客的性别、分类等。你也可以利用特征工程来创建新的特征。
+
+**测试集**
+
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg3NzE3MTM2Ml19
+eyJoaXN0b3J5IjpbLTExNTgzNzQyMjgsLTg3NzE3MTM2Ml19
 -->
