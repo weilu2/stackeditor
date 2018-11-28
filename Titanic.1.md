@@ -965,6 +965,9 @@ plt.ylabel('Algorithm')
 # 参考
 [1] https://www.kaggle.com/c/titanic
 [2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
+
+
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA5NjIwODkyLC04NzcxNzEzNjJdfQ==
+eyJoaXN0b3J5IjpbMzkyMzQxNjgsMjA5NjIwODkyLC04NzcxNz
+EzNjJdfQ==
 -->
