@@ -1,3 +1,4 @@
+
 # 摘要
 
 # 项目介绍
@@ -140,19 +141,28 @@ import random
 import time
 ```
 
+如果这些类库没有安装的话，需要先安装，除了 Numpy 其他都可以参照以下命令安装：
+```
 pip install scikit-learn
+```
+Numpy安装最好到网站 [Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/) 上下载安装。要先安装 Numpy 再安装其他类库。
 
 ### STEP 3.2. 基本分析
 接下来要正式开始接触数据了。首先我们需要对数据集有一些基本的了解。比如说数据集看起来是什么样子的，稍微描述一下。其中有哪些特征？ 每个特征大概起到什么样的作用？特征之间的依赖关系？
 - Survived，是输出变量。1表示生还，0表示丧生。这个变量的所有值都需要我们进行预测。而除了这个变量以外的所有变量都可能是潜在的能够影响预测值的变量。**需要注意的是，并不是说用于预测的变量越多，训练的模型就越好，而是正确的变量才对模型有益。**
 - PassengerId 和 Ticket，这两个变量是随机生成的唯一值，因此这两个值对结果变量不会有影响，因此在后续分析时，可以排除这两个变量。
 - Pclass，是一个有序序列，用于表示社会经济地位，1表示上层人士；2表示中层；3表示底层。
-- 
+- Name，是一个名词类型。可以利用特征工程从中获取性别，利用姓氏可以获得家庭成员数量，以及从称呼中可以分析出经济地位，比如XXX医生。不过这些变量目前已经明确的知道了，因此只需要通过称呼了解这个乘客是不是医生等内容。
+- Sex 和 Embarked，也是名词变量。在后续的计算中会被转换成数值参与计算。
+- Age 和 Fare，是连续型数值。
+- Sibsp 和 Parch，分别表示在船上的兄弟姐妹、配偶以及父母、子女的数量。这两个都是离散型的整数值。这两个值可以用于特征工程，来创建一个家庭成员数量的变量。
+- Cabin，是一个名词变量，可以用于特征工程中发现当事故发生时，其位于船上的位置，以及距离甲板的距离。然而，这一列很多都是空值，因此也不能用于分析。
 
 我们导入数据，然后使用 `sample()` 方法来快速的观察一下数据。
 
 ```Python
-data_raw = pd.read_csv('./input/train.csv')
+data_raw = pd.read_csv('./input/train.csv')	# 读取训练集
+data_val  = pd.read_csv('./input/test.csv')	# 读取测试集
 
 print(data_raw.head()) # 获取数据前五条
 print(data_raw.tail()) # 获取数据后五条
@@ -172,6 +182,505 @@ print(data_raw.sample(10)) # 随机获取十条
 |487|488|0|1|Kent, Mr. Edward Austin|male|58|0|0|11771|29.7|B37|C
 |553|554|1|3|Leeni, Mr. Fahim (Philip Zenni)|male|22|0|0|2620|7.225||C
 |241|242|1|3|Murphy, Miss. Katherine "Kate"|female||1|0|367230|15.5||Q
+
+### STEP 3.3. 数据清理
+在本节中，我们将会对数据进行清理，包括修正异常值；补全缺失值；通过分析创建新的特征；格式转换，将数据转换为便于计算和展示的格式。
+
+**1、修正**
+检查数据，看看是否有任何看起来异常的输入。我们发现在年龄和票价两列，似乎存在异常值。不过客观的来说，这些值也是合理的，因此我们等到进行探索性数据分析时，再决定是否要剔除这两列。不过，如果这些值是一些客观上讲完全不可能的值，比如说年龄=800，那么就可能需要立马处理这个值。不过在处理这些值的时候，需要非常谨慎，因为我们需要获得一个尽可能精确的众数。
+
+**2、补全**
+在年龄、船舱编号、和登船港口等字段都有空值或缺失值。空值对于某些算法来说是不友好的，因为它们无法处理空值。因为需要利用几种不同的算法计算不同的模型，然后进行比较，因此要在真正开始模型训练之前，处理这些空值。有两种方法处理缺失值：1）删除缺失值对应的这条记录；2）利用一些可靠的输入填充缺失值。
+
+一般而言，不建议删除缺失值记录，特别是当缺失值占比重很大时。一种比较基础的方法是利用平均数、中位数或者平均数加上一个随机标准偏差来填充缺失值。
+
+稍微高级一些的方法是基于特定条件的缺失值填充。比如基于座位的等次划分不同的年龄平均数进行年龄缺失值的填充。基于票价和社会经济地位来进行登船港口的填充。当然还有一些更复杂的方法，不过在此之前，应该首先建立基线模型，然后将复杂方法填充的数据训练的模型与其进行比较，以决定是否使用复杂的填充方法。
+
+在这个数据集中，我们使用中位数来填充年龄的缺失值，而船舱这个特征会被丢弃。我们会使用一个模型来填充登船港口的缺失值，通过迭代来决定填充的值是否对模型的精度有所改善。
+
+**3、创建**
+所谓特征工程，就是利用已有的特征来创建新的特征，并且判断这个新的特征对于模型的构建是否有促进作用。在这个数据集中，我们利用特征工程来创建一个“头衔”特征，判断角色对于生还情况是否有影响。
+
+**4、转换**
+最后，我们要处理格式化的问题。虽然没有诸如日期、货币等字段需要格式化，但是我们有一些数据类型需要转换。比如我们的分类数据是以分类的名称表示的，无法进行数学运算。我们需要将这个数据集中的一些数据转换为可以用于数据运算的变量类型。
+
+#### STEP 3.3.1. 观察数据
+
+查看训练集中数据的空值情况：
+```Python
+print('Train columns with null values:\n', data_raw.isnull().sum())
+```
+结果如下。可以看到其中的年龄和船舱分别都有较多空值，登船港口存在两个空值，其余字段基本没有空值。
+```
+Train columns with null values:
+PassengerId      0
+Survived         0
+Pclass           0
+Name             0
+Sex              0
+Age            177
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          687
+Embarked         2
+```
+
+以同样的方法查看测试集中的数据：
+```Python
+print('Train columns with null values:\n', data_val.isnull().sum())
+```
+结果如下。同样是年龄和船舱两个字段存在较多空值。
+```
+Test/Validation columns with null values:
+PassengerId      0
+Pclass           0
+Name             0
+Sex              0
+Age             86
+SibSp            0
+Parch            0
+Ticket           0
+Fare             1
+Cabin          327
+Embarked         0
+```
+
+查看训练集整体数据情况。从这个统计数据中我们可以看到一些数据的分布情况，比如最大值、最小值、中位数、数据出现的频度等数据。
+```Python
+print(data_raw.describe(include = 'all'))
+```
+|Type|PassengerId|Survived|Pclass|Name|Sex|Age|SibSp|Parch|Ticket|Fare|Cabin|Embarked|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|count|891.000000|891.000000|891.000000|891|891|714.000000|891.000000|891.000000|891|891.000000|204|889|
+|unique|NaN|NaN|NaN|891|2|NaN|NaN|NaN|681|NaN|147|3|
+|top|NaN|NaN|NaN|Hirvonen, Miss. Hildur E|male|NaN|NaN|NaN|CA. 2343|NaN|G6|S|
+|freq|NaN|NaN|NaN|1|577|NaN|NaN|NaN|7|NaN|4|644|
+|mean|446.000000|0.383838|2.308642|NaN|NaN|29.699118|0.523008|0.381594|NaN|32.204208|NaN|NaN|
+|std|257.353842|0.486592|0.836071|NaN|NaN|14.526497|1.102743|0.806057|NaN|49.693429|NaN|NaN|
+|min|1.000000|0.000000|1.000000|NaN|NaN|0.420000|0.000000|0.000000|NaN|0.000000|NaN|NaN|
+|25%|223.500000|0.000000|2.000000|NaN|NaN|20.125000|0.000000|0.000000|NaN|7.910400|NaN|NaN|
+|50%|446.000000|0.000000|3.000000|NaN|NaN|28.000000|0.000000|0.000000|NaN|14.454200|NaN|NaN|
+|75%|668.500000|1.000000|3.000000|NaN|NaN|38.000000|1.000000|0.000000|NaN|31.000000|NaN|NaN|
+|max|891.000000|1.000000|3.000000|NaN|NaN|80.000000|8.000000|6.000000|NaN|512.329200|NaN|NaN|
+
+#### STEP 3.3.2. 修正
+将训练集拷贝一个副本，然将副本与测试集合并形成一个新的集合。
+```Python
+data_raw2 = data_raw.copy(deep = True)
+data_cleaner = [data_raw2, data_val]
+```
+后续的操作基于这个拷贝的副本进行。
+
+在这个数据集中，通过上面的观察，并没有发现明显不符合客观事实的值，因此不需要进行处理。不过其中存在一个无用的列，包括乘客ID，船舱、船票编号，需要将这几个列删除。
+```Python
+drop_column = ['PassengerId','Cabin', 'Ticket']
+data_raw2.drop(drop_column, axis=1, inplace = True)
+```
+观察一下删除后的空值情况：
+```Python
+print('Train columns with null values:\n', data_raw2.isnull().sum())
+print("-" * 25)
+
+print('Test/Validation columns with null values:\n', data_val.isnull().sum())
+print("-" * 25)
+```
+结果：
+```
+-------------------------
+Train columns with null values:
+Survived      0
+Pclass        0
+Name          0
+Sex           0
+Age         177
+SibSp         0
+Parch         0
+Fare          0
+Embarked      2
+dtype: int64
+-------------------------
+Test/Validation columns with null values:
+PassengerId      0
+Pclass           0
+Name             0
+Sex              0
+Age             86
+SibSp            0
+Parch            0
+Ticket           0
+Fare             1
+Cabin          327
+Embarked         0
+dtype: int64
+-------------------------
+```
+
+#### STEP 3.3.3. 补全
+这里的 `data_cleaner`  只是一个引用，对其修改，会直接反映到 `data_raw2` 和 `data_val` 上。
+```Python
+for dataset in data_cleaner:    
+    # 使用中位数填充所有空值
+    dataset['Age'].fillna(dataset['Age'].median(), inplace = True)
+
+    # 使用众数填充登船港口
+    dataset['Embarked'].fillna(dataset['Embarked'].mode()[0], inplace = True)
+
+    # 使用中位数填充票价
+    dataset['Fare'].fillna(dataset['Fare'].median(), inplace = True)
+
+print('Train columns with null values:\n', data_raw2.isnull().sum())
+print("-" * 25)
+
+print('Test/Validation columns with null values:\n', data_val.isnull().sum())
+print("-" * 25)
+```
+同样的将处理后的结果打印出来看看：
+```
+Train columns with null values:
+Survived    0
+Pclass      0
+Name        0
+Sex         0
+Age         0
+SibSp       0
+Parch       0
+Fare        0
+Embarked    0
+dtype: int64
+-------------------------
+Test/Validation columns with null values:
+PassengerId      0
+Pclass           0
+Name             0
+Sex              0
+Age              0
+SibSp            0
+Parch            0
+Ticket           0
+Fare             0
+Cabin          327
+Embarked         0
+dtype: int64
+-------------------------
+```
+
+#### STEP 3.3.4. 创建
+利用特征工程将训练集和测试集中的数据创建新的特征。这里我们根据现有的 特征分别创建几个新的特征。
+1、根据兄弟姐妹、配偶、父母和子女数量的两个字段来创建一个表示家庭成员数量的字段。利用家庭成员数量可以得到一个新的字段表示是否是孤身一人。
+2、观察姓名一列，可以看到其中有关于头衔之类的信息，从中可以看到是先生、女士、硕士、博士等等信息。
+3、将船票费用和年龄划分为几个不同的区间。
+
+```Python
+for dataset in data_cleaner:    
+    dataset['FamilySize'] = dataset ['SibSp'] + dataset['Parch'] + 1
+
+    dataset['IsAlone'] = 1
+    dataset['IsAlone'].loc[dataset['FamilySize'] > 1] = 0
+
+    dataset['Title'] = dataset['Name'].str.split(", ", expand=True)[1].str.split(".", expand=True)[0]
+
+    dataset['FareBin'] = pd.qcut(dataset['Fare'], 4)
+
+    dataset['AgeBin'] = pd.cut(dataset['Age'].astype(int), 5)
+```
+
+查看增加了几个特征之后的数据：
+|df_index|Survived|Pclass|Name|Sex|Age|SibSp|Parch|Fare|Embarked|FamilySize|IsAlone|Title|FareBin|AgeBin|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|205|0|3|Strom, Miss. Telma Matilda|female|2.0|0|1|10.4625|S|2|0|Miss|(7.91, 14.454]|(-0.08, 16.0]|
+|879|1|1|Potter, Mrs. Thomas Jr (Lily Alexenia Wilson)|female|56.0|0|1|83.1583|C|2|0|Mrs|(31.0, 512.329]|(48.0, 64.0]|
+|329|1|1|Hippach, Miss. Jean Gertrude|female|16.0|0|1|57.9792|C|2|0|Miss|(31.0, 512.329]|(-0.08, 16.0]|
+|136|1|1|Newsom, Miss. Helen Monypeny|female|19.0|0|2|26.2833|S|3|0|Miss|(14.454, 31.0]|(16.0, 32.0]|
+|57|0|3|Novel, Mr. Mansouer|male|28.5|0|0|7.2292|C|1|1|Mr|(-0.001, 7.91]|(16.0, 32.0]|
+|848|0|2|Harper, Rev. John|male|28.0|0|1|33.0|S|2|0|Rev|(31.0, 512.329]|(16.0, 32.0]|
+|151|1|1|Pears, Mrs. Thomas (Edith Wearne)|female|22.0|1|0|66.6|S|2|0|Mrs|(31.0, 512.329]|(16.0, 32.0]|
+|659|0|1|Newell, Mr. Arthur Webster|male|58.0|0|2|113.275|C|3|0|Mr|(31.0, 512.329]|(48.0, 64.0]|
+|228|0|2|Fahlstrom, Mr. Arne Jonas|male|18.0|0|0|13.0|S|1|1|Mr|(7.91, 14.454]|(16.0, 32.0]|
+|371|0|3|Wiklund, Mr. Jakob Alfred|male|18.0|1|0|6.4958|S|2|0|Mr|(-0.001, 7.91]|(16.0, 32.0]|
+
+对于头衔这一列，由于是拆分字符串，因此对于结果需要着重检查一下，打印这一列的统计信息：
+```Python
+print(data_raw2['Title'].value_counts())
+```
+观察结果：
+```
+Mr              517
+Miss            182
+Mrs             125
+Master           40
+Dr                7
+Rev               6
+Mlle              2
+Col               2
+Major             2
+the Countess      1
+Jonkheer          1
+Capt              1
+Mme               1
+Ms                1
+Sir               1
+Lady              1
+Don               1
+```
+我们发现，拆分出来的头衔有很多种，不过其中占比比较高的就是前面四个，后面的一些数量都太少，因此我们打算将后面的一些都合并成一个。
+```Python
+stat_min = 10
+title_names = (data_raw2['Title'].value_counts() < stat_min)
+data_raw2['Title'] = data_raw2['Title'].apply(lambda x: 'Misc' if title_names.loc[x] == True else x)
+print(data_raw2['Title'].value_counts())
+```
+再次观察处理后的结果：
+```
+Mr        517
+Miss      182
+Mrs       125
+Master     40
+Misc       27
+```
+发现头衔这一列已经全部处理为这几类，对于数量比较少的，都归入到 Misc 中。
+
+#### STEP 3.3.5. 转换
+接下来我们需要将分类数据转换为离散特征编码用于数学分析。另外，在本环节中，我们还会定义用于训练模型的 x （输入）和 y （输出）变量。
+
+首先利用标签编码将几个离散型的列转换为标签。
+```Python
+label = LabelEncoder()
+for dataset in data_cleaner:    
+    dataset['Sex_Code'] = label.fit_transform(dataset['Sex'])
+    dataset['Embarked_Code'] = label.fit_transform(dataset['Embarked'])
+    dataset['Title_Code'] = label.fit_transform(dataset['Title'])
+    dataset['AgeBin_Code'] = label.fit_transform(dataset['AgeBin'])
+    dataset['FareBin_Code'] = label.fit_transform(dataset['FareBin'])
+```
+
+|df_index|Other Columns|Sex_Code|Embarked_Code|Title_Code|AgeBin_Code|FareBin_Code|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|312|...|0|2|4|1|2|
+|394|...|0|2|4|1|2|
+|75|...|1|2|3|1|0|
+|794|...|1|2|3|1|0|
+|348|...|1|2|0|0|2|
+|330|...|0|1|2|1|2|
+|517|...|1|1|3|1|2|
+|203|...|1|0|3|2|0|
+|573|...|0|1|2|1|0|
+|176|...|1|2|0|1|2|
+
+将其中的一些离散型变量转为独热编码：
+```Python
+# 定义输出变量 y
+Target = ['Survived']
+
+# 定义输入变量 x
+data_raw2_x = ['Sex','Pclass', 'Embarked', 'Title','SibSp', 'Parch', 'Age', 'Fare', 'FamilySize', 'IsAlone']
+data_raw2_x_calc = ['Sex_Code','Pclass', 'Embarked_Code', 'Title_Code','SibSp', 'Parch', 'Age', 'Fare']
+data_raw2_xy =  Target + data_raw2_x
+print('Original X Y: ', data_raw2_xy, '\n')
+
+# 定义离散输入变量 x
+data_raw2_x_bin = ['Sex_Code','Pclass', 'Embarked_Code', 'Title_Code', 'FamilySize', 'AgeBin_Code', 'FareBin_Code']
+data_raw2_xy_bin = Target + data_raw2_x_bin
+print('Bin X Y: ', data_raw2_xy_bin, '\n')
+
+# 将离散型变量转为独热编码
+data_raw2_dummy = pd.get_dummies(data_raw2[data_raw2_x])
+data_raw2_x_dummy = data_raw2_dummy.columns.tolist()
+data_raw2_xy_dummy = Target + data_raw2_x_dummy
+print('Dummy X Y: ', data_raw2_xy_dummy, '\n')
+
+print(data_raw2_dummy.sample(10))
+```
+输出结果：
+|df_index|Pclass|SibSp|Parch|Age|Fare|FamilySize|IsAlone|Sex_female|Sex_male|Embarked_C|Embarked_Q|Embarked_S|Title_Master|Title_Misc|Title_Miss|Title_Mr|Title_Mrs|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|154|3|0|0|28.0|7.3125|1|1|0|1|0|0|1|0|0|0|1|0|
+|317|2|0|0|54.0|14.0|1|1|0|1|0|0|1|0|1|0|0|0|
+|216|3|0|0|27.0|7.925|1|1|1|0|0|0|1|0|0|1|0|0|
+|177|1|0|0|50.0|28.7125|1|1|1|0|1|0|0|0|0|1|0|0|
+|514|3|0|0|24.0|7.4958|1|1|0|1|0|0|1|0|0|0|1|0|
+|552|3|0|0|28.0|7.8292|1|1|0|1|0|1|0|0|0|0|1|0|
+|785|3|0|0|25.0|7.25|1|1|0|1|0|0|1|0|0|0|1|0|
+|324|3|8|2|28.0|69.55|11|0|0|1|0|0|1|0|0|0|1|0|
+|135|2|0|0|23.0|15.0458|1|1|0|1|1|0|0|0|0|0|1|0|
+|79|3|0|0|30.0|12.475|1|1|1|0|0|0|1|0|0|1|0|0|
+
+#### STEP 3.3.6. 拆分训练集
+前面提到项目给定了两个数据集，一个是训练集，一个是测试集。但是在真正开始进行模型训练时，我们需要将这个训练集拆分为两部分，使用其中一部分进行模型训练，另一部分进行验证，以防止过拟合。
+
+```Python
+train1_x, test1_x, train1_y, test1_y = model_selection.train_test_split(data_raw2[data_raw2_x_calc], data_raw2[Target], random_state = 0)
+train1_x_bin, test1_x_bin, train1_y_bin, test1_y_bin = model_selection.train_test_split(data_raw2[data_raw2_x_bin], data_raw2[Target] , random_state = 0)
+train1_x_dummy, test1_x_dummy, train1_y_dummy, test1_y_dummy = model_selection.train_test_split(data_raw2_dummy[data_raw2_x_dummy], data_raw2[Target], random_state = 0)
+
+print("data_raw2 Shape: {}".format(data_raw2.shape))
+print("Train1 Shape: {}".format(train1_x.shape))
+print("Test1 Shape: {}".format(test1_x.shape))
+```
+
+## STEP 4. 探索性数据分析
+现在已经完成了数据清理，我们需要利用统计和图示工具来找出分类特征，已经判断其与输出或其他特征之间的相关性。
+
+### STEP 4.1. 单变量相关性分析
+首先基于统计信息的分析：
+```Python
+for x in data_raw2_x:
+    if data_raw2[x].dtype != 'float64' :
+        print('Survival Correlation by:', x)
+        print(data_raw2[[x, Target[0]]].groupby(x, as_index=False).mean())
+        print('-'*10, '\n')
+```
+**生还情况与性别的关系：**
+生还者中绝大多数是女性。
+```
+Survival Correlation by: Sex
+      Sex  Survived
+0  female  0.742038
+1    male  0.188908
+```
+**生还情况与座次关系：**
+坐席等级越高，其存活率就越高。
+```
+Survival Correlation by: Pclass
+   Pclass  Survived
+0       1  0.629630
+1       2  0.472826
+2       3  0.242363
+```
+**生还率与登船港口关系：**
+从 Cherbourg 登船的乘客生还率要显著高于其他两个港口登船的乘客。
+```
+Survival Correlation by: Embarked
+  Embarked  Survived
+0        C  0.553571
+1        Q  0.389610
+2        S  0.339009
+```
+**生还率与头衔之间的关系：**
+```
+Survival Correlation by: Title
+    Title  Survived
+0  Master  0.575000
+1    Misc  0.444444
+2    Miss  0.697802
+3      Mr  0.156673
+4     Mrs  0.792000
+```
+**生还率与兄弟姐妹和配偶数量关系：**
+
+```
+Survival Correlation by: SibSp
+   SibSp  Survived
+0      0  0.345395
+1      1  0.535885
+2      2  0.464286
+3      3  0.250000
+4      4  0.166667
+5      5  0.000000
+6      8  0.000000
+```
+**生还率与父母子女数量关系：**
+
+```
+Survival Correlation by: Parch
+   Parch  Survived
+0      0  0.343658
+1      1  0.550847
+2      2  0.500000
+3      3  0.600000
+4      4  0.000000
+5      5  0.200000
+6      6  0.000000
+```
+
+**生还率与家庭成员数量关系：**
+```
+Survival Correlation by: FamilySize
+   FamilySize  Survived
+0           1  0.303538
+1           2  0.552795
+2           3  0.578431
+3           4  0.724138
+4           5  0.200000
+5           6  0.136364
+6           7  0.333333
+7           8  0.000000
+8          11  0.000000
+```
+
+**生还率与是否独身一人的关系：**
+```
+Survival Correlation by: IsAlone
+   IsAlone  Survived
+0        0  0.505650
+1        1  0.303538
+```
+
+基于图形化的方式分析：
+```Python
+plt.figure(figsize=[16,12])
+
+plt.subplot(231)
+plt.boxplot(x=data_raw2['Fare'], showmeans = True, meanline = True)
+plt.title('Fare Boxplot')
+plt.ylabel('Fare ($)')
+
+plt.subplot(232)
+plt.boxplot(data_raw2['Age'], showmeans = True, meanline = True)
+plt.title('Age Boxplot')
+plt.ylabel('Age (Years)')
+
+plt.subplot(233)
+plt.boxplot(data_raw2['FamilySize'], showmeans = True, meanline = True)
+plt.title('Family Size Boxplot')
+plt.ylabel('Family Size (#)')
+
+plt.subplot(234)
+plt.hist(x = [data_raw2[data_raw2['Survived']==1]['Fare'], data_raw2[data_raw2['Survived']==0]['Fare']], 
+         stacked=True, color = ['g','r'],label = ['Survived','Dead'])
+plt.title('Fare Histogram by Survival')
+plt.xlabel('Fare ($)')
+plt.ylabel('# of Passengers')
+plt.legend()
+
+plt.subplot(235)
+plt.hist(x = [data_raw2[data_raw2['Survived']==1]['Age'], data_raw2[data_raw2['Survived']==0]['Age']], 
+         stacked=True, color = ['g','r'],label = ['Survived','Dead'])
+plt.title('Age Histogram by Survival')
+plt.xlabel('Age (Years)')
+plt.ylabel('# of Passengers')
+plt.legend()
+
+plt.subplot(236)
+plt.hist(x = [data_raw2[data_raw2['Survived']==1]['FamilySize'], data_raw2[data_raw2['Survived']==0]['FamilySize']], 
+         stacked=True, color = ['g','r'],label = ['Survived','Dead'])
+plt.title('Family Size Histogram by Survival')
+plt.xlabel('Family Size (#)')
+plt.ylabel('# of Passengers')
+plt.legend()
+plt.show()
+```
+
+结果：
+![基于图形的票价、年龄、家庭规模分布情况与生还情况关系](A01.png)
+
+
+```Python
+fig, saxis = plt.subplots(2, 3,figsize=(16,12))
+
+sns.barplot(x = 'Embarked', y = 'Survived', data=data_raw2, ax = saxis[0,0])
+sns.barplot(x = 'Pclass', y = 'Survived', order=[1,2,3], data=data_raw2, ax = saxis[0,1])
+sns.barplot(x = 'IsAlone', y = 'Survived', order=[1,0], data=data_raw2, ax = saxis[0,2])
+
+sns.pointplot(x = 'FareBin', y = 'Survived',  data=data_raw2, ax = saxis[1,0])
+sns.pointplot(x = 'AgeBin', y = 'Survived',  data=data_raw2, ax = saxis[1,1])
+sns.pointplot(x = 'FamilySize', y = 'Survived', data=data_raw2, ax = saxis[1,2])
+
+```
+
+![基于图形的票价、年龄、家庭规模分布情况与生还情况关系](A02.png)
+
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
@@ -211,5 +720,5 @@ sns.set_style('white')
 pylab.rcParams['figure.figsize'] = 12,8
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjk0MDAyNzUsLTg3NzE3MTM2Ml19
+eyJoaXN0b3J5IjpbMjA3MjUzNDI3LC04NzcxNzEzNjJdfQ==
 -->
