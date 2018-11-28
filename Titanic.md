@@ -5,7 +5,7 @@
 # 项目介绍
 
 ## 项目描述
-在1912年4月15日发生的泰坦沉船事件中，2224名乘客和船员中，有1502人丧生。在这次海难中导致如此多人员丧生的一个重要原因是没有足够的救生船。不过其中一些乘客的存活率要比其他乘客的存活率大，比如妇女/儿童和上层乘客。
+在1912年4月15日发生的泰坦尼克沉船事件中，2224名乘客和船员中，有1502人丧生。在这次海难中导致如此多人员丧生的一个重要原因是没有足够的救生船。不过其中一些乘客的存活率要比其他乘客的存活率大，比如妇女/儿童和上层乘客。
 
 在这个挑战中，我们期望你分析一下什么样的座次有利于提高存活率。并且，我们要求你应用机器学习工具来预测哪些用户在此次海难中存活下来。
 
@@ -940,7 +940,49 @@ print(MLA_compare)
 
 以图形化的方式将结果展示出来：
 ```Python
-plt.figure(figsize=[16,12])
+plt.
+
+
+#### STEP 3.3.5. 转换
+
+
+
+# 参考
+[1] https://www.kaggle.com/c/titanic
+[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
+
+
+
+# TEMP
+
+我们使用流行的机器学习算法类库 scikit-learn。
+```Python
+#Common Model Algorithms
+from sklearn import svm, tree, linear_model, neighbors, naive_bayes, ensemble, discriminant_analysis, gaussian_process
+from xgboost import XGBClassifier
+
+#Common Model Helpers
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn import feature_selection
+from sklearn import model_selection
+from sklearn import metrics
+```
+
+可视化内容
+```Python
+#Visualization
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
+import seaborn as sns
+from pandas.tools.plotting import scatter_matrix
+
+#Configure Visualization Defaults
+#%matplotlib inline = show plots in Jupyter Notebook browser
+%matplotlib inline
+mpl.style.use('ggplot')
+sns.set_style('white')
+pylab.rcParams['figure(.figsize=[16,12])
 
 #barplot using https://seaborn.pydata.org/generated/seaborn.barplot.html
 sns.barplot(x='MLA Test Accuracy Mean', y = 'MLA Name', data = MLA_compare, color = 'm')
@@ -964,8 +1006,10 @@ plt.ylabel('Algorithm')
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
-[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
+[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook'] = 12,8
+```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkxNzEyNzUwMSwyMDk2MjA4OTIsMjA5Nj
-IwODkyLC03MzYzMTMyNzYsLTg3NzE3MTM2Ml19
+eyJoaXN0b3J5IjpbMTE5OTk2NzcyMSwtOTE3MTI3NTAxLDIwOT
+YyMDg5MiwyMDk2MjA4OTIsLTczNjMxMzI3NiwtODc3MTcxMzYy
+XX0=
 -->
