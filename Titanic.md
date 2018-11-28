@@ -4,7 +4,7 @@
 # 项目介绍
 
 ## 项目描述
-在1912年4月15日发生的泰坦尼克沉船事件中，2224名乘客和船员中，有1502人丧生。在这次海难中导致如此多人员丧生的一个重要原因是没有足够的救生船。不过其中一些乘客的存活率要比其他乘客的存活率大，比如妇女/儿童和上层乘客。
+在1912年4月15日发生的泰坦沉船事件中，2224名乘客和船员中，有1502人丧生。在这次海难中导致如此多人员丧生的一个重要原因是没有足够的救生船。不过其中一些乘客的存活率要比其他乘客的存活率大，比如妇女/儿童和上层乘客。
 
 在这个挑战中，我们期望你分析一下什么样的座次有利于提高存活率。并且，我们要求你应用机器学习工具来预测哪些用户在此次海难中存活下来。
 
@@ -145,7 +145,7 @@ import time
 ```
 pip install scikit-learn
 ```
-Numpy安装最好到网站 [Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/) 上下载安装。要先安装 Numpy 再安装其他类库。
+Numpy安装最好到网站 [Python Extension Packages](https://www.lfd.uci.edu/~gohlke/pythonlibs/) 上下载安装。要先安装 Numpy 再安装其他类库。pip install scikit-learn
 
 ### STEP 3.2. 基本分析
 接下来要正式开始接触数据了。首先我们需要对数据集有一些基本的了解。比如说数据集看起来是什么样子的，稍微描述一下。其中有哪些特征？ 每个特征大概起到什么样的作用？特征之间的依赖关系？
@@ -720,5 +720,6 @@ sns.set_style('white')
 pylab.rcParams['figure.figsize'] = 12,8
 ```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA3MjUzNDI3LC04NzcxNzEzNjJdfQ==
+eyJoaXN0b3J5IjpbLTczNjMxMzI3NiwyMDcyNTM0MjcsLTg3Nz
+E3MTM2Ml19
 -->
