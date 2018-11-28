@@ -960,12 +960,12 @@ plt.ylabel('Algorithm')
 
 我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们就单纯的猜测所有人全部丧生，那么也会有 67.5% 的准确率。因此我们的准确率要大于这个值才有价值，我们将这个基线设置为 68%。
 
-
+1
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
 [2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA5NjIwODkyLDIwOTYyMDg5MiwtNzM2Mz
-EzMjc2LC04NzcxNzEzNjJdfQ==
+eyJoaXN0b3J5IjpbLTkxNzEyNzUwMSwyMDk2MjA4OTIsMjA5Nj
+IwODkyLC03MzYzMTMyNzYsLTg3NzE3MTM2Ml19
 -->
