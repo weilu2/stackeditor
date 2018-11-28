@@ -536,8 +536,8 @@ for x in data_raw2_x:
         print(data_raw2[[x, Target[0]]].groupby(x, as_index=False).mean())
         print('-'*10, '\n')
 ```
-生还的关系*
-程：将数据按照性别分为两组，分别求每组 `Survived` 的平均值，由于生还者标志为 1，丧生为 0，则该平均数正好可以表示每个分组中生还者占的百分比。
+生还情况的关系*
+生还者程：将数据按照性别分为两组，分别求每组 `Survived` 的平均值，由于生还者标志为 1，丧生为 0，则该平均数正好可以表示每个分组中生还者占的百分比。
 ```
 Survival Correlation by: Sex
       Sex  Survived
@@ -547,7 +547,7 @@ Survival Correlation by: Sex
 **根据该统计结果，发现女性中，生还者占 74% 左右，而男性中的生还者占比只有 19% 左右。
 
 **座位等级与生还情况与座次关系：**
-一等座中有 62% 的生还者；二等座则有 47% 的生还者；三等座只有 24% 的生还者。因此坐席等级越高，其存活就相对越高。
+一等座中有 62% 的生还者；二等座则有 47% 的生还者；三等座只有 24% 的生还者。因此坐席等级越高，其存活可能性就相对越高。
 ```
 Survival Correlation by: Pclass
    Pclass  Survived
@@ -633,14 +633,18 @@ plt.figure(figsize=[16,12])
 
 plt.subplot(121)
 plt.boxplot(x=data_raw2['Fare'], showmeans = True, meanline = True)
-plt.lel')
+plt.title('Fare Boxplot')
 plt.ylabel('Fare ($)')
 
 plt.subplot()
 pla_e'], ')
 plt.label(')
 
-票价分布情况与生还情况关系](A01-01-Fare.png)
+plt.show()
+```
+
+结果：
+![票价分布情况与生还情况关系](A01-01-Fare.png)
 
 观察票价分布的箱线图，可以看出来票价的主要分布区间大概在 5 ~ 40 之间，上限在 80 左右，票价中存在部分离群点，应该不是异常值，是属于比较高档的票价。
 
@@ -650,10 +654,11 @@ plt.label(')
 
 ```Python
 plt.figure(figsize=[16,12])
-plt.subplot()
-pla_e'], )
+plt.subplot(233121)
+plt.boxplot(data_raw2['e'], showmeans = True, meanline = True)
 plt.title('e Boxplot')
-plt.aelge(e)
+plt.ylabel('Age (Years)')
+
 plt.subplot()
 plt.hist(x = [data_raw2[data_raw2['Survived']==1]['FarAge'], data_raw2[data_raw2['Survived']==0]['FarAge']], 
          stacked=True, color = ['g','r'],label = ['Survived','Dead'])
@@ -673,19 +678,19 @@ plt.legend()
 ```Python
 plt.figure(figsize=[16,12])
 plt.subplot(235121)
-plt.hist(x = [data_raw2[data_raw2['Survived']==1]['Age'], data_raw2[data_raw2['Survived']==0]['Agboxplot(data_raw2['e']], 
+plt.hist(x = [data_raw2[data_raw2['Survived']==1]['Age'], data_raw2[data_raw2['Survived']==0]['Agboxplot(data_raw2['FamilySize']], 
          stacked=True, color = ['g','r'],label = ['Survived','Dead'])
 plt.title('Age Histogram by Survivalshowmeans = True, meanline = True)
-plt.title('e Boxplot')
+plt.title('Family Size Boxplot')
 plt.xylabel('Age (Years)')
 plt.ylabel('# of Passengers')
 plt.legend(Family Size (#)')
 
-plt.subplot()
+plt.subplot(236122)
 plt.hist(x = [data_raw2[data_raw2['Survived']==1]['FamilySize'], data_raw2[data_raw2['Survived']==0]['FamilySize']], 
          stacked=True, color = ['g','r'],label = ['Survived','Dead'])
 plt.title('Family Size Histogram by Survival')
-plt.xlabel('e ()')
+plt.xlabel('Family Size (#)')
 plt.ylabel('# of Passengers')
 plt.legend()
 ```
@@ -704,7 +709,7 @@ plt.legend()
 fig, saxis = plt.subplots(, 3,figsize=(16,12))
 
 sns.barplot(x = 'Embarked', y = 'Survived', data=data_raw2, ax = saxis[])
-sns.barplot(x = 'Pclass', y = 'Survived', order=[1,2,3], data=data_raw2, ax = saxis[])
+sns.barplot(x = 'Pclass', y = 'Survived', order=[1,2,3], data=data_raw2, ax = saxis[1])
 sns.barplot(x = 'IsAlone', y = 'Survived', order=[1,0], data=data_raw2, ax = saxis[0,2])
 ```
 
@@ -715,7 +720,7 @@ sns.barplot(x = 'IsAlone', y = 'Survived', order=[1,0], data=data_raw2, ax = sax
 基本上票价越高的，存活率越高；而年龄主要是16所以下的青少年和 48 ~ 64 岁之间的老年存活率较高。
 ```Python
 fig, saxis = plt.subplots(1, 3,figsize=(16,12))
-sns.pointplot(x = 'FareBin', y = 'Survived',  data=data_raw2, ax = saxis[])
+sns.pointplot(x = 'FareBin', y = 'Survived',  data=data_raw2, ax = saxis[0])
 sns.pointplot(x = 'AgeBin', y = 'Survived',  data=data_raw2, ax = saxis[1])
 sns.pointplot(x = 'FamilySize', y = 'Survived', data=data_raw2, ax = saxis[2])
 ```
@@ -724,7 +729,7 @@ sns.pointplot(x = 'FamilySize', y = 'Survived', data=data_raw2, ax = saxis[2])
 
 ### STEP 4.2. 双变量相关性分析
 
-#### STEP 4.2.1. 座位等次与票价、年龄家庭员数量与生还情况的关系
+#### STEP 4.2.1. 座位等次与票价、年龄家庭规员数量与生还情况的关系
 
 ```Python
 fig, (axis1,axis2,axis3) = plt.subplots(1,3,figsize=(14,12))
@@ -954,13 +959,13 @@ plt.ylabel('Algorithm')
 我们知道这是一个二分类问题，因此无论如何，就算是猜，最差也应该能够有 50% 的准确率。当然，这个基线是在对于具体的项目和数据信息一无所知的情况下确定的，但事实上我们对这个数据集有一定的了解。
 
 我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们就单纯的猜测所有人全部丧生，那么也会有 67.5% 的准确率。因此我们的准确率要大于这个值才有价值，我们将这个基线设置为 68%。
-j
+
 
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
 [2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk0MTEzMDg4NSwyMDk2MjA4OTIsLTczNj
-MxMzI3NiwtODc3MTcxMzYyXX0=
+eyJoaXN0b3J5IjpbMjA5NjIwODkyLDIwOTYyMDg5MiwtNzM2Mz
+EzMjc2LC04NzcxNzEzNjJdfQ==
 -->
