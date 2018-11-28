@@ -1,5 +1,6 @@
 
 # 摘要
+本文通过一个 Kaggle 的入门级项目泰坦尼克生存预测，介绍一个一般性的数据科学项目工程框架。该框架涵盖一般数据科学问题解决方案的几个主要过程。包括定义问题、收集数据、准备数据、探索性分析、处理模型、验证和优化。
 
 # 项目介绍
 
@@ -523,7 +524,11 @@ print("Test1 Shape: {}".format(test1_x.shape))
 现在已经完成了数据清理，我们需要利用统计和图示工具来找出分类特征，已经判断其与输出或其他特征之间的相关性。
 
 ### STEP 4.1. 单变量相关性分析
-首先基于统计信息的分析：
+
+#### STEP 4.1.1. 基于数值统计的分析
+
+对离散型特征分别进行分组统计，分析不同类型的值与生还情况之间的关系。
+
 ```Python
 for x in data_raw2_x:
     if data_raw2[x].dtype != 'float64' :
@@ -531,16 +536,18 @@ for x in data_raw2_x:
         print(data_raw2[[x, Target[0]]].groupby(x, as_index=False).mean())
         print('-'*10, '\n')
 ```
-**生还情况与性别的关系：**
-生还者中绝大多数是女性。
+生还情况的关系*
+生还者程：将数据按照性别分为两组，分别求每组 `Survived` 的平均值，由于生还者标志为 1，丧生为 0，则该平均数正好可以表示每个分组中生还者占的百分比。
 ```
 Survival Correlation by: Sex
       Sex  Survived
 0  female  0.742038
 1    male  0.188908
 ```
-**生还情况与座次关系：**
-坐席等级越高，其存活率就越高。
+**根据该统计结果，发现女性中，生还者占 74% 左右，而男性中的生还者占比只有 19% 左右。
+
+**座位等级与生还情况与座次关系：**
+一等座中有 62% 的生还者；二等座则有 47% 的生还者；三等座只有 24% 的生还者。因此坐席等级越高，其存活可能性就相对越高。
 ```
 Survival Correlation by: Pclass
    Pclass  Survived
@@ -568,7 +575,7 @@ Survival Correlation by: Title
 4     Mrs  0.792000
 ```
 **生还率与兄弟姐妹和配偶数量关系：**
-
+我们发现在船上拥有 1 到 2 名兄弟姐妹或配偶的人员生存率比较高，达到 53% 和 46%，其余都很低。
 ```
 Survival Correlation by: SibSp
    SibSp  Survived
@@ -581,7 +588,7 @@ Survival Correlation by: SibSp
 6      8  0.000000
 ```
 **生还率与父母子女数量关系：**
-
+通船上父母与子女的数量与生存情况关系，有1-3人的生存率最高，在 50~60%之间。
 ```
 Survival Correlation by: Parch
    Parch  Survived
@@ -595,6 +602,7 @@ Survival Correlation by: Parch
 ```
 
 **生还率与家庭成员数量关系：**
+总的家庭成员在  4 人左右的存活率较高，可能是什么原因？**或许可以分析一下这些存货下来的人员对应的家庭成员，特别是男性家庭成员的存货情况。**
 ```
 Survival Correlation by: FamilySize
    FamilySize  Survived
@@ -617,108 +625,345 @@ Survival Correlation by: IsAlone
 1        1  0.303538
 ```
 
-基于图形化的方式分析：
+#### STEP 4.1.2. 基于箱线图和直方图的分析
+
+**票价分布情况与生还情况关系**
 ```Python
 plt.figure(figsize=[16,12])
 
-plt.subplot(231)
+plt.subplot(121)
 plt.boxplot(x=data_raw2['Fare'], showmeans = True, meanline = True)
 plt.title('Fare Boxplot')
 plt.ylabel('Fare ($)')
 
-plt.subplot(232)
-plt.boxplot(data_raw2['Age'], showmeans = True, meanline = True)
-plt.title('Age Boxplot')
+plt.subplot()
+pla_e'], ')
+plt.label(')
+
+plt.show()
+```
+
+结果：
+![票价分布情况与生还情况关系](A01-01-Fare.png)
+
+观察票价分布的箱线图，可以看出来票价的主要分布区间大概在 5 ~ 40 之间，上限在 80 左右，票价中存在部分离群点，应该不是异常值，是属于比较高档的票价。
+
+观察票价与生还情况直方图，可以看出来在 0 ~ 50 票价的乘客存活率相对较低，大概只有 30% 左右，而票价越高，其存活率基本上是不断上升的。
+
+**年龄分布情况与生还情况关系**
+
+```Python
+plt.figure(figsize=[16,12])
+plt.subplot(233121)
+plt.boxplot(data_raw2['e'], showmeans = True, meanline = True)
+plt.title('e Boxplot')
 plt.ylabel('Age (Years)')
 
-plt.subplot(233)
-plt.boxplot(data_raw2['FamilySize'], showmeans = True, meanline = True)
+plt.subplot()
+plt.hist(x = [data_raw2[data_raw2['Survived']==1]['FarAge'], data_raw2[data_raw2['Survived']==0]['FarAge']], 
+         stacked=True, color = ['g','r'],label = ['Survived','Dead'])
+plt.title('FarAge Histogram by Survival')
+plt.xlabel('Fare ($Age (Years)')
+plt.ylabel('# of Passengers')
+plt.legend()
+```
+
+![年龄分布情况与生还情况关系](A01-02-Age.png)
+
+观察年龄分布的箱线图，可以看出来年龄的主要分布区间大概在 20 ~ 35 之间，大部分应该属于青壮年。存在部分离群点，可能是年龄较大的老年人和幼儿。
+
+观察年龄与生还情况直方图，可以看出来在 30 岁区间的乘客存活率相对较低，低于30% ，其中很多人可能是牺牲了自己把求生的机会让给别人了。其余年龄分布的存活率也都相对不高，只有幼儿，青少年和50岁以上的老人存活率较高。
+
+**家庭成员数量分布情况与生还情况关系**
+```Python
+plt.figure(figsize=[16,12])
+plt.subplot(235121)
+plt.hist(x = [data_raw2[data_raw2['Survived']==1]['Age'], data_raw2[data_raw2['Survived']==0]['Agboxplot(data_raw2['FamilySize']], 
+         stacked=True, color = ['g','r'],label = ['Survived','Dead'])
+plt.title('Age Histogram by Survivalshowmeans = True, meanline = True)
 plt.title('Family Size Boxplot')
-plt.ylabel('Family Size (#)')
-
-plt.subplot(234)
-plt.hist(x = [data_raw2[data_raw2['Survived']==1]['Fare'], data_raw2[data_raw2['Survived']==0]['Fare']], 
-         stacked=True, color = ['g','r'],label = ['Survived','Dead'])
-plt.title('Fare Histogram by Survival')
-plt.xlabel('Fare ($)')
+plt.xylabel('Age (Years)')
 plt.ylabel('# of Passengers')
-plt.legend()
+plt.legend(Family Size (#)')
 
-plt.subplot(235)
-plt.hist(x = [data_raw2[data_raw2['Survived']==1]['Age'], data_raw2[data_raw2['Survived']==0]['Age']], 
-         stacked=True, color = ['g','r'],label = ['Survived','Dead'])
-plt.title('Age Histogram by Survival')
-plt.xlabel('Age (Years)')
-plt.ylabel('# of Passengers')
-plt.legend()
-
-plt.subplot(236)
+plt.subplot(236122)
 plt.hist(x = [data_raw2[data_raw2['Survived']==1]['FamilySize'], data_raw2[data_raw2['Survived']==0]['FamilySize']], 
          stacked=True, color = ['g','r'],label = ['Survived','Dead'])
 plt.title('Family Size Histogram by Survival')
 plt.xlabel('Family Size (#)')
 plt.ylabel('# of Passengers')
 plt.legend()
-plt.show()
 ```
 
-结果：
-![基于图形的票价、年龄、家庭规模分布情况与生还情况关系](A01.png)
+![家庭成员数量分布情况与生还情况关系](A01-03-FamilySize.png)
 
+观察家庭成员数量分布的箱线图，可以看出来家庭成员数量的主要分布区间大概在 1 ~ 2 之间。
+
+观察家庭成员数量与生还情况直方图，可以看出来在 2 ~ 5 区间的乘客存活率相对较高，高于50% ，可能这个数量的家庭成员相对比较集中，并且能够相互帮助求生。
+
+
+#### STEP 4.1.3. 基于直方图的分析
+以图形化的方式展示一开始采用的数学统计的分析结果，按照分组展示每个特征不同值对应的生还率。
 
 ```Python
-fig, saxis = plt.subplots(2, 3,figsize=(16,12))
+fig, saxis = plt.subplots(, 3,figsize=(16,12))
 
-sns.barplot(x = 'Embarked', y = 'Survived', data=data_raw2, ax = saxis[0,0])
-sns.barplot(x = 'Pclass', y = 'Survived', order=[1,2,3], data=data_raw2, ax = saxis[0,1])
+sns.barplot(x = 'Embarked', y = 'Survived', data=data_raw2, ax = saxis[])
+sns.barplot(x = 'Pclass', y = 'Survived', order=[1,2,3], data=data_raw2, ax = saxis[1])
 sns.barplot(x = 'IsAlone', y = 'Survived', order=[1,0], data=data_raw2, ax = saxis[0,2])
-
-sns.pointplot(x = 'FareBin', y = 'Survived',  data=data_raw2, ax = saxis[1,0])
-sns.pointplot(x = 'AgeBin', y = 'Survived',  data=data_raw2, ax = saxis[1,1])
-sns.pointplot(x = 'FamilySize', y = 'Survived', data=data_raw2, ax = saxis[1,2])
-
 ```
 
-![基于图形的票价、年龄、家庭规模分布情况与生还情况关系](A02.png)
+![登船港口、座次、是否独自一人与生还率的关系](A02-01-Embarked-Pclass-IsAlone.png)
+
+#### STEP 4.1.4. 基于折线图的分析
+分析票价区间、年龄区间与家庭成员数量与生还率之间的关系，通过折线图比较直观的看出彼此之间的区别。
+基本上票价越高的，存活率越高；而年龄主要是16所以下的青少年和 48 ~ 64 岁之间的老年存活率较高。
+```Python
+fig, saxis = plt.subplots(1, 3,figsize=(16,12))
+sns.pointplot(x = 'FareBin', y = 'Survived',  data=data_raw2, ax = saxis[0])
+sns.pointplot(x = 'AgeBin', y = 'Survived',  data=data_raw2, ax = saxis[1])
+sns.pointplot(x = 'FamilySize', y = 'Survived', data=data_raw2, ax = saxis[2])
+```
+![区间与生还率的关系](A03-01-FareBin-AgeBin-FamilySize.png)
+
+
+### STEP 4.2. 双变量相关性分析
+
+#### STEP 4.2.1. 座位等次与票价、年龄家庭规员数量与生还情况的关系
+
+```Python
+fig, (axis1,axis2,axis3) = plt.subplots(1,3,figsize=(14,12))
+
+sns.boxplot(x = 'Pclass', y = 'Fare', hue = 'Survived', data = data_raw2, ax = axis1)
+axis1.set_title('Pclass vs Fare Survival Comparison')
+
+sns.violinplot(x = 'Pclass', y = 'Age', hue = 'Survived', data = data_raw2, split = True, ax = axis2)
+axis2.set_title('Pclass vs Age Survival Comparison')
+
+sns.boxplot(x = 'Pclass', y ='FamilySize', hue = 'Survived', data = data_raw2, ax = axis3)
+axis3.set_title('Pclass vs Family Size Survival Comparison')
+```
+
+![分析](A04-Pclass-OtherVar.png)
+
+从图中我们可以发下以下一些内容：
+- 一等座中票价较高的乘客存活率较高，而二等座和三等座中票价对存活率没有太大影响；
+- 一等座中存活下来的基本上是年龄较大的，而二等座青少年存活率较高，三等座也是类似；
+- 一等座中家庭成员数量基本在 2 人左右，存活率相仿，二等座和三等座家庭成员较多，存活率较高的基本都分布在 2 ~ 3 人左右；
+
+#### STEP 4.2.2. 性别和登船港口、座位等次、是否独自一人与生还情况的关系
+
+```Python
+fig, qaxis = plt.subplots(1,3,figsize=(14,12))
+
+sns.barplot(x = 'Sex', y = 'Survived', hue = 'Embarked', data=data_raw2, ax = qaxis[0])
+axis1.set_title('Sex vs Embarked Survival Comparison')
+
+sns.barplot(x = 'Sex', y = 'Survived', hue = 'Pclass', data=data_raw2, ax  = qaxis[1])
+axis1.set_title('Sex vs Pclass Survival Comparison')
+
+sns.barplot(x = 'Sex', y = 'Survived', hue = 'IsAlone', data=data_raw2, ax  = qaxis[2])
+axis1.set_title('Sex vs IsAlone Survival Comparison')
+```
+
+![分析](A05-Sex-Embarked-Pclass-IsAlone.png)
+
+利用折线图：
+```Python
+fig, (maxis1, maxis2) = plt.subplots(1, 2,figsize=(14,12))
+
+#how does family size factor with sex & survival compare
+sns.pointplot(x="FamilySize", y="Survived", hue="Sex", data=data_raw2,
+              palette={"male": "blue", "female": "pink"},
+              markers=["*", "o"], linestyles=["-", "--"], ax = maxis1)
+
+#how does class factor with sex & survival compare
+sns.pointplot(x="Pclass", y="Survived", hue="Sex", data=data_raw2,
+              palette={"male": "blue", "female": "pink"},
+              markers=["*", "o"], linestyles=["-", "--"], ax = maxis2)
+```
+
+![分析](A06-Pclass-Sex.png)
+
+```Python
+a = sns.FacetGrid( data_raw2, hue = 'Survived', aspect=4 )
+a.map(sns.kdeplot, 'Age', shade= True )
+a.set(xlim=(0 , data_raw2['Age'].max()))
+a.add_legend()
+```
+![分析](A07-Age.png)
+
+#### STEP 4.2.3. 相关热力图
+```Python
+def correlation_heatmap(df):
+    _ , ax = plt.subplots(figsize =(14, 12))
+    colormap = sns.diverging_palette(220, 10, as_cmap = True)
+    
+    _ = sns.heatmap(
+        df.corr(), 
+        cmap = colormap,
+        square=True, 
+        cbar_kws={'shrink':.9 }, 
+        ax=ax,
+        annot=True, 
+        linewidths=0.1,vmax=1.0, linecolor='white',
+        annot_kws={'fontsize':12 }
+    )
+    
+    plt.title('Pearson Correlation of Features', y=1.05, size=15)
+
+correlation_heatmap(data_raw2)
+```
+
+![分析](A08-Pearson-Correlation.png)
+
+
+## STEP 5. 模型数据
+接下来到了我们使用算法结合数据训练模型的阶段了。首先我们要面临的一个问题就是如何选择合适的算法。
+
+### STEP 5.1. 如何选择一个机器学习算法
+一般来说在选择机器学习算法中有一个很著名的理论，No Free Lunch Theorem，没有免费的午餐定理。就是说没有一个算法能够适用于所有问题，因此针对不同的问题需要使用不同的算法处理。
+
+下面使用一些主流算法分别训练模型，然后观察结果。
+
+```Python
+MLA = [
+    # Ensemble Methods
+    ensemble.AdaBoostClassifier(),
+    ensemble.BaggingClassifier(),
+    ensemble.ExtraTreesClassifier(),
+    ensemble.GradientBoostingClassifier(),
+    ensemble.RandomForestClassifier(),
+
+    # Gaussian Processes
+    gaussian_process.GaussianProcessClassifier(),
+    
+    # GLM
+    linear_model.LogisticRegressionCV(),
+    linear_model.PassiveAggressiveClassifier(),
+    linear_model.RidgeClassifierCV(),
+    linear_model.SGDClassifier(),
+    linear_model.Perceptron(),
+    
+    # Navies Bayes
+    naive_bayes.BernoulliNB(),
+    naive_bayes.GaussianNB(),
+    
+    # Nearest Neighbor
+    neighbors.KNeighborsClassifier(),
+    
+    # SVM
+    svm.SVC(probability=True),
+    svm.NuSVC(probability=True),
+    svm.LinearSVC(),
+    
+    # Trees    
+    tree.DecisionTreeClassifier(),
+    tree.ExtraTreeClassifier(),
+    
+    # Discriminant Analysis
+    discriminant_analysis.LinearDiscriminantAnalysis(),
+    discriminant_analysis.QuadraticDiscriminantAnalysis(),
+
+    XGBClassifier()    
+    ]
+
+
+
+#split dataset in cross-validation with this splitter class: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.ShuffleSplit.html#sklearn.model_selection.ShuffleSplit
+#note: this is an alternative to train_test_split
+cv_split = model_selection.ShuffleSplit(n_splits = 10, test_size = .3, train_size = .6, random_state = 0 ) # run model 10x with 60/30 split intentionally leaving out 10%
+
+#create table to compare MLA metrics
+MLA_columns = ['MLA Name', 'MLA Parameters','MLA Train Accuracy Mean', 'MLA Test Accuracy Mean', 'MLA Test Accuracy 3*STD' ,'MLA Time']
+MLA_compare = pd.DataFrame(columns = MLA_columns)
+
+#create table to compare MLA predictions
+MLA_predict = data_raw2[Target]
+
+#index through MLA and save performance to table
+row_index = 0
+for alg in MLA:
+
+    #set name and parameters
+    MLA_name = alg.__class__.__name__
+    MLA_compare.loc[row_index, 'MLA Name'] = MLA_name
+    MLA_compare.loc[row_index, 'MLA Parameters'] = str(alg.get_params())
+    
+    #score model with cross validation: http://scikit-learn.org/stable/modules/generated/sklearn.model_selection.cross_validate.html#sklearn.model_selection.cross_validate
+    cv_results = model_selection.cross_validate(alg, data_raw2[data_raw2_x_bin], data_raw2[Target], cv  = cv_split)
+
+    MLA_compare.loc[row_index, 'MLA Time'] = cv_results['fit_time'].mean()
+    MLA_compare.loc[row_index, 'MLA Train Accuracy Mean'] = cv_results['train_score'].mean()
+    MLA_compare.loc[row_index, 'MLA Test Accuracy Mean'] = cv_results['test_score'].mean()   
+    #if this is a non-bias random sample, then +/-3 standard deviations (std) from the mean, should statistically capture 99.7% of the subsets
+    MLA_compare.loc[row_index, 'MLA Test Accuracy 3*STD'] = cv_results['test_score'].std()*3   #let's know the worst that can happen!
+    
+
+    #save MLA predictions - see section 6 for usage
+    alg.fit(data_raw2[data_raw2_x_bin], data_raw2[Target])
+    MLA_predict[MLA_name] = alg.predict(data_raw2[data_raw2_x_bin])
+    
+    row_index+=1
+
+    
+#print and sort table: https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.sort_values.html
+MLA_compare.sort_values(by = ['MLA Test Accuracy Mean'], ascending = False, inplace = True)
+print(MLA_compare)
+```
+结果按照测试准确率从高到低排序：
+
+|#|MLA Name|MLA Parameters|MLA Train Accuracy Mean|MLA Test Accuracy Mean|MLA Test Accuracy 3*STD|MLA Time|
+|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
+|21|XGBClassifier|{'base_score': 0.5, 'booster': 'gbtree', 'colsample_bylevel': 1, 'colsample_bytree': 1, 'gamma': 0, 'learning_rate': 0.1, 'max_delta_step': 0, 'max_depth': 3, 'min_child_weight': 1, 'missing': None, 'n_estimators': 100, 'n_jobs': 1, 'nthread': None, 'objective': 'binary:logistic', 'random_state': 0, 'reg_alpha': 0, 'reg_lambda': 1, 'scale_pos_weight': 1, 'seed': None, 'silent': True, 'subsample': 1}|0.856367041|0.829477612|0.052754649|0.039702296|
+|14|SVC|{'C': 1.0, 'cache_size': 200, 'class_weight': None, 'coef0': 0.0, 'decision_function_shape': 'ovr', 'degree': 3, 'gamma': 'auto_deprecated', 'kernel': 'rbf', 'max_iter': -1, 'probability': True, 'random_state': None, 'shrinking': True, 'tol': 0.001, 'verbose': False}|0.837265918|0.826119403|0.045387616|0.041802382|
+|2|ExtraTreesClassifier|{'bootstrap': False, 'class_weight': None, 'criterion': 'gini', 'max_depth': None, 'max_features': 'auto', 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_impurity_split': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'n_estimators': 'warn', 'n_jobs': None, 'oob_score': False, 'random_state': None, 'verbose': 0, 'warm_start': False}|0.895131086|0.823134328|0.070477953|0.019001102|
+|3|GradientBoostingClassifier|{'criterion': 'friedman_mse', 'init': None, 'learning_rate': 0.1, 'loss': 'deviance', 'max_depth': 3, 'max_features': None, 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_impurity_split': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'n_estimators': 100, 'n_iter_no_change': None, 'presort': 'auto', 'random_state': None, 'subsample': 1.0, 'tol': 0.0001, 'validation_fraction': 0.1, 'verbose': 0, 'warm_start': False}|0.866666667|0.822761194|0.04987314|0.076404333|
+|15|NuSVC|{'cache_size': 200, 'class_weight': None, 'coef0': 0.0, 'decision_function_shape': 'ovr', 'degree': 3, 'gamma': 'auto_deprecated', 'kernel': 'rbf', 'max_iter': -1, 'nu': 0.5, 'probability': True, 'random_state': None, 'shrinking': True, 'tol': 0.001, 'verbose': False}|0.83576779|0.822761194|0.049368083|0.053803039|
+|17|DecisionTreeClassifier|{'class_weight': None, 'criterion': 'gini', 'max_depth': None, 'max_features': None, 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_impurity_split': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'presort': False, 'random_state': None, 'splitter': 'best'}|0.895131086|0.820895522|0.05321581|0.003500175|
+|4|RandomForestClassifier|{'bootstrap': True, 'class_weight': None, 'criterion': 'gini', 'max_depth': None, 'max_features': 'auto', 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_impurity_split': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'n_estimators': 'warn', 'n_jobs': None, 'oob_score': False, 'random_state': None, 'verbose': 0, 'warm_start': False}|0.8917603|0.820522388|0.077465598|0.021201277|
+|1|BaggingClassifier|{'base_estimator': None, 'bootstrap': True, 'bootstrap_features': False, 'max_features': 1.0, 'max_samples': 1.0, 'n_estimators': 10, 'n_jobs': None, 'oob_score': False, 'random_state': None, 'verbose': 0, 'warm_start': False}|0.89082397|0.817910448|0.07621811|0.016200852|
+|13|KNeighborsClassifier|{'algorithm': 'auto', 'leaf_size': 30, 'metric': 'minkowski', 'metric_params': None, 'n_jobs': None, 'n_neighbors': 5, 'p': 2, 'weights': 'uniform'}|0.850374532|0.81380597|0.069086302|0.005700326|
+|18|ExtraTreeClassifier|{'class_weight': None, 'criterion': 'gini', 'max_depth': None, 'max_features': 'auto', 'max_leaf_nodes': None, 'min_impurity_decrease': 0.0, 'min_impurity_split': None, 'min_samples_leaf': 1, 'min_samples_split': 2, 'min_weight_fraction_leaf': 0.0, 'random_state': None, 'splitter': 'random'}|0.895131086|0.813432836|0.047227664|0.003000212|
+|0|AdaBoostClassifier|{'algorithm': 'SAMME.R', 'base_estimator': None, 'learning_rate': 1.0, 'n_estimators': 50, 'random_state': None}|0.820411985|0.811940299|0.049860576|0.058903384|
+|5|GaussianProcessClassifier|{'copy_X_train': True, 'kernel': None, 'max_iter_predict': 100, 'multi_class': 'one_vs_rest', 'n_jobs': None, 'n_restarts_optimizer': 0, 'optimizer': 'fmin_l_bfgs_b', 'random_state': None, 'warm_start': False}|0.871722846|0.810447761|0.049253731|0.156008911|
+|20|QuadraticDiscriminantAnalysis|{'priors': None, 'reg_param': 0.0, 'store_covariance': False, 'store_covariances': None, 'tol': 0.0001}|0.821535581|0.807089552|0.081038901|0.005000305|
+|8|RidgeClassifierCV|{'alphas': array([  0.1,   1. ,  10. ]), 'class_weight': None, 'cv': None, 'fit_intercept': True, 'normalize': False, 'scoring': None, 'store_cv_values': False}|0.796629213|0.794029851|0.036030172|0.008900499|
+|19|LinearDiscriminantAnalysis|{'n_components': None, 'priors': None, 'shrinkage': None, 'solver': 'svd', 'store_covariance': False, 'tol': 0.0001}|0.796816479|0.794029851|0.036030172|0.007000422|
+|16|LinearSVC|{'C': 1.0, 'class_weight': None, 'dual': True, 'fit_intercept': True, 'intercept_scaling': 1, 'loss': 'squared_hinge', 'max_iter': 1000, 'multi_class': 'ovr', 'penalty': 'l2', 'random_state': None, 'tol': 0.0001, 'verbose': 0}|0.797565543|0.792910448|0.041053256|0.036402035|
+|6|LogisticRegressionCV|{'Cs': 10, 'class_weight': None, 'cv': 'warn', 'dual': False, 'fit_intercept': True, 'intercept_scaling': 1.0, 'max_iter': 100, 'multi_class': 'warn', 'n_jobs': None, 'penalty': 'l2', 'random_state': None, 'refit': True, 'scoring': None, 'solver': 'lbfgs', 'tol': 0.0001, 'verbose': 0}|0.797003745|0.790671642|0.065358182|0.127807283|
+|12|GaussianNB|{'priors': None, 'var_smoothing': 1e-09}|0.794756554|0.781343284|0.087456828|0.005600309|
+|11|BernoulliNB|{'alpha': 1.0, 'binarize': 0.0, 'class_prior': None, 'fit_prior': True}|0.78576779|0.775373134|0.057034653|0.005900288|
+|9|SGDClassifier|{'alpha': 0.0001, 'average': False, 'class_weight': None, 'early_stopping': False, 'epsilon': 0.1, 'eta0': 0.0, 'fit_intercept': True, 'l1_ratio': 0.15, 'learning_rate': 'optimal', 'loss': 'hinge', 'max_iter': None, 'n_iter': None, 'n_iter_no_change': 5, 'n_jobs': None, 'penalty': 'l2', 'power_t': 0.5, 'random_state': None, 'shuffle': True, 'tol': None, 'validation_fraction': 0.1, 'verbose': 0, 'warm_start': False}|0.73670412|0.739179104|0.123788965|0.009600472|
+|10|Perceptron|{'alpha': 0.0001, 'class_weight': None, 'early_stopping': False, 'eta0': 1.0, 'fit_intercept': True, 'max_iter': None, 'n_iter': None, 'n_iter_no_change': 5, 'n_jobs': None, 'penalty': None, 'random_state': 0, 'shuffle': True, 'tol': None, 'validation_fraction': 0.1, 'verbose': 0, 'warm_start': False}|0.740074906|0.728731343|0.162220766|0.009200573|
+|7|PassiveAggressiveClassifier|{'C': 1.0, 'average': False, 'class_weight': None, 'early_stopping': False, 'fit_intercept': True, 'loss': 'hinge', 'max_iter': None, 'n_iter': None, 'n_iter_no_change': 5, 'n_jobs': None, 'random_state': None, 'shuffle': True, 'tol': None, 'validation_fraction': 0.1, 'verbose': 0, 'warm_start': False}|0.699812734|0.682462687|0.352227936|0.010100603|
+
+以图形化的方式将结果展示出来：
+```Python
+plt.figure(figsize=[16,12])
+
+#barplot using https://seaborn.pydata.org/generated/seaborn.barplot.html
+sns.barplot(x='MLA Test Accuracy Mean', y = 'MLA Name', data = MLA_compare, color = 'm')
+
+#prettify using pyplot: https://matplotlib.org/api/pyplot_api.html
+plt.title('Machine Learning Algorithm Accuracy Score \n')
+plt.xlabel('Accuracy Score (%)')
+plt.ylabel('Algorithm')
+```
+
+![分析](B-Score.png)
+
+### STEP 5.2. 选择基线
+在进行后续的模型优化之前，我们首先需要判断目前所拥有的模型是否值得继续优化，因此我们要确定一个基线。
+
+我们知道这是一个二分类问题，因此无论如何，就算是猜，最差也应该能够有 50% 的准确率。当然，这个基线是在对于具体的项目和数据信息一无所知的情况下确定的，但事实上我们对这个数据集有一定的了解。
+
+我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们j
 
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
 [2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
-
-
-
-# TEMP
-
-我们使用流行的机器学习算法类库 scikit-learn。
-```Python
-#Common Model Algorithms
-from sklearn import svm, tree, linear_model, neighbors, naive_bayes, ensemble, discriminant_analysis, gaussian_process
-from xgboost import XGBClassifier
-
-#Common Model Helpers
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder
-from sklearn import feature_selection
-from sklearn import model_selection
-from sklearn import metrics
-```
-
-可视化内容
-```Python
-#Visualization
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import matplotlib.pylab as pylab
-import seaborn as sns
-from pandas.tools.plotting import scatter_matrix
-
-#Configure Visualization Defaults
-#%matplotlib inline = show plots in Jupyter Notebook browser
-%matplotlib inline
-mpl.style.use('ggplot')
-sns.set_style('white')
-pylab.rcParams['figure.figsize'] = 12,8
-```
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTczNjMxMzI3NiwtODc3MTcxMzYyXX0=
+eyJoaXN0b3J5IjpbNTcxMTY5Nzc0LC04NzcxNzEzNjJdfQ==
 -->
