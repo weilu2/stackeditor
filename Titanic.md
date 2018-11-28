@@ -958,13 +958,14 @@ plt.ylabel('Algorithm')
 
 我们知道这是一个二分类问题，因此无论如何，就算是猜，最差也应该能够有 50% 的准确率。当然，这个基线是在对于具体的项目和数据信息一无所知的情况下确定的，但事实上我们对这个数据集有一定的了解。
 
-我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们j
+我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们就单纯的猜测所有人全部丧生，那么也会有 67.5% 的准确率。因此我们的准确率要大于这个值才有价值，我们将这个基线设置为 68%。
+
 
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
 [2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNTcxMTY5Nzc0LC03MzYzMTMyNzYsLTg3Nz
+eyJoaXN0b3J5IjpbMjA5NjIwODkyLC03MzYzMTMyNzYsLTg3Nz
 E3MTM2Ml19
 -->
