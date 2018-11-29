@@ -1,4 +1,5 @@
 
+
 # 摘要
 本文通过一个 Kaggle 的入门级项目泰坦尼克生存预测，介绍一个一般性的数据科学项目工程框架。该框架涵盖一般数据科学问题解决方案的几个主要过程。包括定义问题、收集数据、准备数据、探索性分析、处理模型、验证和优化。
 
@@ -162,8 +163,8 @@ Numpy安装最好到网站 [Python Extension Packages](https://www.lfd.uci.edu/~
 我们导入数据，然后使用 `sample()` 方法来快速的观察一下数据。
 
 ```Python
-data_raw = pd.read_csv('./input/train.csv')	# 读取训练集
-data_val  = pd.read_csv('./input/test.csv')	# 读取测试集
+data_raw = pd.read_csv('./input/train.csv')# 读取训练集
+data_val  = pd.read_csv('./input/test.csv')# 读取测试集
 
 print(data_raw.head()) # 获取数据前五条
 print(data_raw.tail()) # 获取数据后五条
@@ -940,49 +941,7 @@ print(MLA_compare)
 
 以图形化的方式将结果展示出来：
 ```Python
-plt.
-
-
-#### STEP 3.3.5. 转换
-
-
-
-# 参考
-[1] https://www.kaggle.com/c/titanic
-[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
-
-
-
-# TEMP
-
-我们使用流行的机器学习算法类库 scikit-learn。
-```Python
-#Common Model Algorithms
-from sklearn import svm, tree, linear_model, neighbors, naive_bayes, ensemble, discriminant_analysis, gaussian_process
-from xgboost import XGBClassifier
-
-#Common Model Helpers
-from sklearn.preprocessing import OneHotEncoder, LabelEncoder
-from sklearn import feature_selection
-from sklearn import model_selection
-from sklearn import metrics
-```
-
-可视化内容
-```Python
-#Visualization
-import matplotlib as mpl
-import matplotlib.pyplot as plt
-import matplotlib.pylab as pylab
-import seaborn as sns
-from pandas.tools.plotting import scatter_matrix
-
-#Configure Visualization Defaults
-#%matplotlib inline = show plots in Jupyter Notebook browser
-%matplotlib inline
-mpl.style.use('ggplot')
-sns.set_style('white')
-pylab.rcParams['figure(.figsize=[16,12])
+plt.figure(figsize=[16,12])
 
 #barplot using https://seaborn.pydata.org/generated/seaborn.barplot.html
 sns.barplot(x='MLA Test Accuracy Mean', y = 'MLA Name', data = MLA_compare, color = 'm')
@@ -1002,16 +961,21 @@ plt.ylabel('Algorithm')
 
 我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们就单纯的猜测所有人全部丧生，那么也会有 67.5% 的准确率。因此我们的准确率要大于这个值才有价值，我们将这个基线设置为 68%。
 
-1
+### STEP 5.3. 交叉验证（Cross-Validation）
+前面的代码中我们使用 `train_test_splitter` 来拆分训练集和测试集，并使用 `cross_validate` 方法进行测试。
+
+### STEP 5.4. 基于超参提升模型
+
+### STEP 5.5. 基于特征选择提升模型
+
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
-[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook'] = 12,8
-```
+[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNDQyMzQ1ODQ2LDExOTk5Njc3MjEsLTkxNz
-EyNzUwMSwyMDk2MjA4OTIsMjA5NjIwODkyLC03MzYzMTMyNzYs
-LTg3NzE3MTM2Ml19
+eyJoaXN0b3J5IjpbNTY2ODg5MjA5LDQ0MjM0NTg0NiwtOTE3MT
+I3NTAxLDIwOTYyMDg5MiwyMDk2MjA4OTIsLTczNjMxMzI3Niwt
+ODc3MTcxMzYyXX0=
 -->
