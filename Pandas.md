@@ -18,7 +18,13 @@ Other Functionalities on Indexes
 - Dropping
 - Arithmetic and Data Alignment
 
-
+|index|value|
+|:-:|:-:|
+|0|12|
+|1|-4|
+|2|7|
+|3|9|
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY4MjMyMTAzLDE2OTIwNjk0M119
+eyJoaXN0b3J5IjpbLTEyNzk5MTQ5MTAsMTY4MjMyMTAzLDE2OT
+IwNjk0M119
 -->
