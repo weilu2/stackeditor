@@ -940,7 +940,49 @@ print(MLA_compare)
 
 以图形化的方式将结果展示出来：
 ```Python
-plt.figure(figsize=[16,12])
+plt.
+
+
+#### STEP 3.3.5. 转换
+
+
+
+# 参考
+[1] https://www.kaggle.com/c/titanic
+[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
+
+
+
+# TEMP
+
+我们使用流行的机器学习算法类库 scikit-learn。
+```Python
+#Common Model Algorithms
+from sklearn import svm, tree, linear_model, neighbors, naive_bayes, ensemble, discriminant_analysis, gaussian_process
+from xgboost import XGBClassifier
+
+#Common Model Helpers
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+from sklearn import feature_selection
+from sklearn import model_selection
+from sklearn import metrics
+```
+
+可视化内容
+```Python
+#Visualization
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import matplotlib.pylab as pylab
+import seaborn as sns
+from pandas.tools.plotting import scatter_matrix
+
+#Configure Visualization Defaults
+#%matplotlib inline = show plots in Jupyter Notebook browser
+%matplotlib inline
+mpl.style.use('ggplot')
+sns.set_style('white')
+pylab.rcParams['figure(.figsize=[16,12])
 
 #barplot using https://seaborn.pydata.org/generated/seaborn.barplot.html
 sns.barplot(x='MLA Test Accuracy Mean', y = 'MLA Name', data = MLA_compare, color = 'm')
@@ -960,14 +1002,15 @@ plt.ylabel('Algorithm')
 
 我们知道在这个事故中，2224 人中有 1502 人丧生，也就是 67.5%。如果我们就单纯的猜测所有人全部丧生，那么也会有 67.5% 的准确率。因此我们的准确率要大于这个值才有价值，我们将这个基线设置为 68%。
 
-
+1
 
 # 参考
 [1] https://www.kaggle.com/c/titanic
-[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook
+[2] https://www.kaggle.com/ldfreeman3/a-data-science-framework-to-achieve-99-accuracy/notebook'] = 12,8
+```
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMzkyMzQxNjgsMjA5NjIwODkyLC04NzcxNz
-EzNjJdfQ==
+eyJoaXN0b3J5IjpbNDQyMzQ1ODQ2LDM5MjM0MTY4LDIwOTYyMD
+g5MiwtODc3MTcxMzYyXX0=
 -->
