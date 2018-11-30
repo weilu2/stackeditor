@@ -33,7 +33,25 @@ None
 |:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|:-:|
 |0|1|Harvard University|United States of America|99.7|72.4|98.7|98.8|34.5|96.1|20,152|8.9|25%||2011|
 |1|2|California Institute of Technology|United States of America|97.7|54.6|98|99.9|83.7|96|2,243|6.9|27%|33 : 67|2011|
-|2|3|Massachusetts Institute of Technology|United States of America|97.8|82.3|91.4|99.9|87.5|95.6|11,074|9|33%|37 : 63|2011|
+|2|3|Massachusetts Institute of Technology|United States of APandas tutorial
+
+# 基本介绍
+
+Pandas 是 Python 语言下的一个用于数据分析的工具类库。使用 Pandas 可以方便的对数据进行处理和分析。
+
+
+# Data Structures
+
+## Series
+
+## DataFrame
+
+## Index Object
+
+Other Functionalities on Indexes
+- Reindexing
+- Dropping
+- Arithmertica|97.8|82.3|91.4|99.9|87.5|95.6|11,074|9|33%|37 : 63|2011|
 |3|4|Stanford University|United States of America|98.3|29.5|98.1|99.2|64.3|94.3|15,596|7.8|22%|42:58:00|2011|
 |4|5|Princeton University|United States of America|90.9|70.3|95.4|99.9|-|94.2|7,929|8.4|27%|45:55:00|2011|
 |5|6|University of Cambridge|United Kingdom|90.5|77.7|94.1|94|57|91.2|18,812|11.8|34%|46:54:00|2011|
@@ -60,8 +78,15 @@ None
 		- zeroline = 布尔值，是否显示0坐标位置的线条，也就是 y 轴
 - fig = 一个包含数据和布局信息的字典
 - plot = 绘制图形，这里采用本地离线方式绘制
-		- 
+		-  and Data Alignment
+
+|index|value|
+|:-:|:-:|
+|0|12|
+|1|-4|
+|2|7|
+|3|9|
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMyNjI3MTg0MywxNjgyMzIxMDMsMTY5Mj
-A2OTQzXX0=
+eyJoaXN0b3J5IjpbLTE2OTMyNjY1MzksLTMyNjI3MTg0MywxNj
+gyMzIxMDMsMTY5MjA2OTQzXX0=
 -->
