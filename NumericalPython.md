@@ -23,6 +23,18 @@ array([])
 |2|3|4.7|3.2|1.3|0.2|Iris-setosa|
 |3|4|4.6|3.1|1.5|0.2|Iris-setosa|
 |4|5|5.0|3.6|1.4|0.2|Iris-setosa|
+
+asf
+
+|-|precision|recall|f1-score|support|
+|:-:|:-:|:-:|:-:|:-:|
+|Iris-setosa|1.00|1.00|1.00|11|
+|Iris-versicolor|1.00|1.00|1.00|13|
+|Iris-virginica|1.00|1.00|1.00|6|
+|micro avg|1.00|1.00|1.00|30|
+|macro avg|1.00|1.00|1.00|30|
+|weighted avg|1.00|1.00|1.00|30|
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1OTk3ODA4NywtOTU1MDIzNjM3XX0=
+eyJoaXN0b3J5IjpbMTQxOTk4NTY0LC0xNTk5NzgwODcsLTk1NT
+AyMzYzN119
 -->
