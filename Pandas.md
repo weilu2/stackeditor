@@ -1,10 +1,14 @@
 ||Geographic Area|City|poverty_rate|
-|:-:|:-:|:-:|:-:|
+|:-:|:-|:-:|:-:|
 |0|AL|Abanda CDP|78.8|
 |1|AL|Abbeville city|29.1|
 |2|AL|Adamsville city|25.5|
 |3|AL|Addison town|30.7|
 |4|AL|Akron town|42|
+
+<table>
+
+</table>
 
 ```Python
 <class 'pandas.core.frame.DataFrame'>
@@ -87,6 +91,6 @@ Other Functionalities on Indexes
 |2|7|
 |3|9|
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2OTMyNjY1MzksLTMyNjI3MTg0MywxNj
-gyMzIxMDMsMTY5MjA2OTQzXX0=
+eyJoaXN0b3J5IjpbMTA5NjkzNjcxMCwtMTY5MzI2NjUzOSwtMz
+I2MjcxODQzLDE2ODIzMjEwMywxNjkyMDY5NDNdfQ==
 -->
