@@ -22,6 +22,10 @@
 |9|SGDClassifier|0.73670412|0.739179104|0.123788965|0.009600472|
 |10|Perceptron|0.740074906|0.728731343|0.162220766|0.009200573|
 |7|PassiveAggressiveClassifier|0.699812734|0.682462687|0.352227936|0.010100603|
+
+$$
+f(x) = f^{(3)}(f^{(2)}(f^{(3)}(x)))
+$$ 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkwNzQ4MDQwMywtNzQ5MjUxNDEzXX0=
+eyJoaXN0b3J5IjpbLTMwODM4MzcxLC03NDkyNTE0MTNdfQ==
 -->
