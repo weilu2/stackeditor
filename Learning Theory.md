@@ -26,7 +26,10 @@
 
 数据生成器生成的数据输入到目标函数中，目标函数返回输出值 $y$。将输入 $\bold{x}$ 转换为 $y$ 的这个目标函数是未知但固定的。
 
-学习机器从数据生成器和目标函数中观测到 $\mathcal{i}$
+学习机器从数据生成器和目标函数中观测到 $l$ 个样本：
+$$
+(x_1,y_1), \ldots, (x_l, y_l)
+$$
 
 ## 1.2. 定义解析
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
@@ -34,5 +37,5 @@
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE2MjU5MTU3ODgsNzAzNTI4NDkzXX0=
+eyJoaXN0b3J5IjpbLTg5MDAxNzAwNCw3MDM1Mjg0OTNdfQ==
 -->
