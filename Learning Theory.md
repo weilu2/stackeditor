@@ -1,8 +1,6 @@
 # 目录
-
-
-
 [1. 学习问题](#学习问题)
+1.1. 学习模型
     
  问题定义
   解决方法
@@ -40,6 +38,7 @@ $$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTk5MDY3NTgxMiwtMzAyMDU0ODYwLDEwOT
-kwNTkzMzQsLTEzNjkxMTk0MjgsNzAzNTI4NDkzXX0=
+eyJoaXN0b3J5IjpbMTk4NzUzMTE4OCwtOTkwNjc1ODEyLC0zMD
+IwNTQ4NjAsMTA5OTA1OTMzNCwtMTM2OTExOTQyOCw3MDM1Mjg0
+OTNdfQ==
 -->
