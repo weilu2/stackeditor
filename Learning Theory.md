@@ -24,7 +24,7 @@
 
 数据生成器是源头，它依据某一未知但固定的概率分布函数 $F(x)$ 独立同分布的产生数据 $x \in X$。
 
-数据生成器生成的数据输入到目标函数中，目标函数返回输出值 $y$。将输入 $\bold{x}$ 转换为 $y$ 的这个目标函数是未知但固定的。
+数据生成器生成的数据输入到目标函数中，目标函数根据条件分布 $F(y|x)$ 返回输出值 $y$。将输入 $\bold{x}$ 转换为 $y$ 的这个目标函数是未知但固定的。
 
 学习机器从数据生成器和目标函数中观测到 $l$ 个样本：
 $$
@@ -38,5 +38,5 @@ $$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTY2ODQxNjkzNyw3MDM1Mjg0OTNdfQ==
+eyJoaXN0b3J5IjpbNjYzNzcwMzE2LDcwMzUyODQ5M119
 -->
