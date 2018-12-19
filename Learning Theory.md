@@ -30,6 +30,7 @@
 $$
 (x_1,y_1), \ldots, (x_l, y_l)
 $$
+这些样本是依据联合分布函数 $F(x,y) = F(x)F(y|x)$ 随机获取到的
 然后学习机器构造一个函数用于预测由生成器产生的某个特定的 $x_i$ 对应由目标函数所生成的 $y_i$。学习机器的目标是构造一个目标函数 $S$ 适当的逼近。
 
 ## 1.2. 定义解析
@@ -38,5 +39,5 @@ $$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbNjYzNzcwMzE2LDcwMzUyODQ5M119
+eyJoaXN0b3J5IjpbLTE5NjU3Mzc0NTksNzAzNTI4NDkzXX0=
 -->
