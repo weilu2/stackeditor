@@ -17,7 +17,12 @@
 
 学习模型包含三部分组成：
 1. 数据生成器（G）
-2. 目标函数
+2. 目标函数（S）
+3. 学习机器（LM）
+
+![enter image description here](P12-G1.1)
+
+
 
 ## 1.2. 定义解析
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
@@ -25,5 +30,5 @@
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkzNzg0OTg0XX0=
+eyJoaXN0b3J5IjpbLTIwNzMwNTAwNDldfQ==
 -->
