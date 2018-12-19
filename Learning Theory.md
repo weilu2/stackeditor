@@ -22,7 +22,7 @@
 
 ![enter image description here](P12-G1.1)
 
-
+数据生成器是源头，它依据某一未知但固定的概率分布函数 $F(x)$ 独立同分布的产生xiangli
 
 ## 1.2. 定义解析
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
@@ -30,5 +30,5 @@
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwNzMwNTAwNDldfQ==
+eyJoaXN0b3J5IjpbNjMzNTYzMDIwXX0=
 -->
