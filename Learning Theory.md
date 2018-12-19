@@ -42,14 +42,14 @@ $$
 
 # 2. 解决方法
 
-上面提到过学习机器追求的两个不同的目标，对应了两类解决问题的思路。模仿目标函数和辨识目标函数。第一种情况下
+上面提到过学习机器追求的两个不同的目标，对应了两类解决问题的思路。模仿目标函数和辨识目标函数。第一种情况下，对于生成器给定的 $x$，通过预测目标函数的输出来得到最佳结果；而第二种情况下，得到好的预测结果是不够的，还必须构造出一个函数，zhe
 
 ## 2.1. 模仿目标函数
 
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzOTcyNzA3NDcsMTQ0ODc1NTAzLC05OT
+eyJoaXN0b3J5IjpbLTE2NjMyNDE1MzMsMTQ0ODc1NTAzLC05OT
 A2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5MTE5
 NDI4LDcwMzUyODQ5M119
 -->
