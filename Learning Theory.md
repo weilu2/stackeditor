@@ -39,6 +39,8 @@ $$
 ## 1.2. 定义解析
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
 
+从果园中采摘葡萄的过程就相当于生成器生成 $x$
+
 
 # 2. 解决方法
 
@@ -51,7 +53,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTY2Njg5NzU3NywxNDQ4NzU1MDMsLTk5MD
+eyJoaXN0b3J5IjpbLTk0MTE2ODUwOSwxNDQ4NzU1MDMsLTk5MD
 Y3NTgxMiwtMzAyMDU0ODYwLDEwOTkwNTkzMzQsLTEzNjkxMTk0
 MjgsNzAzNTI4NDkzXX0=
 -->
