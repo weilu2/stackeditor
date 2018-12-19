@@ -2,7 +2,7 @@
 
 学习原理描述学习问题以及问题的解决方法。
 
-<a name="1.1. 学习模型">1. 学习问题</a>
+[1. 学习问题](1. 学习问题)
     
     问题定义
   解决方法
@@ -38,6 +38,6 @@ $$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTE4Mzk1NDcyMSwtMTM2OTExOTQyOCw3MD
-M1Mjg0OTNdfQ==
+eyJoaXN0b3J5IjpbOTAzMjA4NTg0LC0xMzY5MTE5NDI4LDcwMz
+UyODQ5M119
 -->
