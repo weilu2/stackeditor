@@ -2,14 +2,14 @@
 
 学习原理描述学习问题以及问题的解决方法。
 
-[1. 学习问题](##1.学习问题)
+[1. 学习问题](#学习问题)
     
-    问题定义
+ 问题定义
   解决方法
     1、基于所选函数的品质可以用风险泛函来评估的思路
     2、基于估计所期望的随机依赖关系的思路
 
-# 1.学习问题
+# 1. 学习问题
 
 依据经验数据选取所期望的依赖关系的问题。
 
@@ -38,6 +38,6 @@ $$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTA5OTA1OTMzNCwtMTM2OTExOTQyOCw3MD
-M1Mjg0OTNdfQ==
+eyJoaXN0b3J5IjpbLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMz
+Y5MTE5NDI4LDcwMzUyODQ5M119
 -->
