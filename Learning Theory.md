@@ -14,10 +14,10 @@
 依据经验数据选取所期望的依赖关系的问题。
 
 ## 1.1. 问题示例
-
+比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，
 
 ## 1.1. 具体定义
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTM0ODgxMjEyMF19
+eyJoaXN0b3J5IjpbLTEwOTA1MDM4NzRdfQ==
 -->
