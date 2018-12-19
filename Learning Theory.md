@@ -2,7 +2,7 @@
 
 学习原理描述学习问题以及问题的解决方法。
 
-1. 学习问题
+<a id=1. 学习问题
     
     问题定义
   解决方法
@@ -38,5 +38,6 @@ $$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEzNjkxMTk0MjgsNzAzNTI4NDkzXX0=
+eyJoaXN0b3J5IjpbMjExMTE3Njk4MSwtMTM2OTExOTQyOCw3MD
+M1Mjg0OTNdfQ==
 -->
