@@ -40,9 +40,14 @@ $$
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
 
 
+# 2. 解决方法
 
+## 2.1. 模仿目标函数
+
+
+## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQ0ODc1NTAzLC05OTA2NzU4MTIsLTMwMj
-A1NDg2MCwxMDk5MDU5MzM0LC0xMzY5MTE5NDI4LDcwMzUyODQ5
-M119
+eyJoaXN0b3J5IjpbLTE1MTU1MjgxMDcsMTQ0ODc1NTAzLC05OT
+A2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5MTE5
+NDI4LDcwMzUyODQ5M119
 -->
