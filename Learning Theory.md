@@ -39,7 +39,7 @@ $$
 ## 1.2. 解析
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
 
-从果园中采摘葡萄的过程就相当于生成器生成 $x$，由于
+从果园中采摘葡萄的过程就相当于生成器生成 $x$，由于整个果园中不同品质的葡萄分布肯定是有一定的分布特点的，我们假设这个分布是
 
 
 # 2. 解决方法
@@ -53,7 +53,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE5NjM5OTc4MjksLTk0MTE2ODUwOSwxND
-Q4NzU1MDMsLTk5MDY3NTgxMiwtMzAyMDU0ODYwLDEwOTkwNTkz
-MzQsLTEzNjkxMTk0MjgsNzAzNTI4NDkzXX0=
+eyJoaXN0b3J5IjpbMTMyODU5OTY3OCwtOTQxMTY4NTA5LDE0ND
+g3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMz
+NCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ==
 -->
