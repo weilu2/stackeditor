@@ -56,11 +56,13 @@ $$
 
 ### 2.1.1. 最小化经验数据风险泛函的问题
 
-直接zu
+直接最小化泛函
+
+基于经验数据最小化泛函
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjA1MDExNzk1MywxNzMzODI1NTM1LC05ND
+eyJoaXN0b3J5IjpbMTk4MDY4MDAxNSwxNzMzODI1NTM1LC05ND
 ExNjg1MDksMTQ0ODc1NTAzLC05OTA2NzU4MTIsLTMwMjA1NDg2
 MCwxMDk5MDU5MzM0LC0xMzY5MTE5NDI4LDcwMzUyODQ5M119
 -->
