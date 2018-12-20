@@ -39,7 +39,9 @@ $$
 ## 1.2. 解析
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
 
-从果园中采摘葡萄的过程就相当于生成器生成 $x$，由于整个果园中不同品质的葡萄分布肯定是有一定的分布特点的，我们假设这个分布是
+从果园中采摘葡萄的过程就相当于生成器生成 $x$，由于整个果园中不同品质的葡萄分布肯定是有一定的分布特点的，我们假设这个分布是 $F(x)$，而我每次采摘一颗葡萄是没有任何挑选的，并且前后葡萄的采摘过程是没有影响的，这样我每次采摘葡萄就是根据分布函数 $F(x)$ 进行的独立同分布采集。
+
+
 
 
 # 2. 解决方法
@@ -53,7 +55,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTMyODU5OTY3OCwtOTQxMTY4NTA5LDE0ND
+eyJoaXN0b3J5IjpbMjAyNDc5MzgyOSwtOTQxMTY4NTA5LDE0ND
 g3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMz
 NCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ==
 -->
