@@ -41,7 +41,7 @@ $$
 
 从果园中采摘葡萄的过程就相当于生成器生成 $x$，由于整个果园中不同品质的葡萄分布肯定是有一定的分布特点的，我们假设这个分布是 $F(x)$，而我每次采摘一颗葡萄是没有任何挑选的，并且前后葡萄的采摘过程是没有影响的，这样我每次采摘葡萄就是根据分布函数 $F(x)$ 进行的独立同分布采集。
 
-
+将采集到的葡萄送到酿造车间中进行生产酿造酒相当于目标函数产生 $y$。
 
 
 # 2. 解决方法
@@ -55,7 +55,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMjAyNDc5MzgyOSwtOTQxMTY4NTA5LDE0ND
+eyJoaXN0b3J5IjpbLTQyNDM4NzYzMCwtOTQxMTY4NTA5LDE0ND
 g3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMz
 NCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ==
 -->
