@@ -56,7 +56,9 @@ $$
 
 ### 2.1.1. 最小化经验数据风险泛函的问题
 
-这个问题可以表示为一个模型：在所有可能的函数中，找出一个函数，能够以最佳的方式manzu
+这个问题可以表示为一个模型：在所有可能的函数中，找出一个函数，能够以最佳的方式满足给定的度量标准。
+
+
 
 直接最小化泛函
 
@@ -64,8 +66,8 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMzNTYzMTQxNywxOTgwNjgwMDE1LDE3Mz
-M4MjU1MzUsLTk0MTE2ODUwOSwxNDQ4NzU1MDMsLTk5MDY3NTgx
-MiwtMzAyMDU0ODYwLDEwOTkwNTkzMzQsLTEzNjkxMTk0MjgsNz
-AzNTI4NDkzXX0=
+eyJoaXN0b3J5IjpbLTEwMTYzOTg4MjEsMTk4MDY4MDAxNSwxNz
+MzODI1NTM1LC05NDExNjg1MDksMTQ0ODc1NTAzLC05OTA2NzU4
+MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5MTE5NDI4LD
+cwMzUyODQ5M119
 -->
