@@ -1,12 +1,8 @@
 # 目录
 [1. 学习问题](#学习问题)
 　　[1.1. 学习模型](#学习模型)
-　　[]
-    
- 问题定义
-  解决方法
-    1、基于所选函数的品质可以用风险泛函来评估的思路
-    2、基于估计所期望的随机依赖关系的思路
+　　[1.2. 解析](#解析)
+[2. 解决方法](#解决方法)
 
 学习原理描述学习问题以及问题的解决方法。
 
@@ -63,7 +59,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTQxMjMzNjg4LC05NDExNjg1MDksMTQ0OD
-c1NTAzLC05OTA2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0
-LC0xMzY5MTE5NDI4LDcwMzUyODQ5M119
+eyJoaXN0b3J5IjpbMTczMzgyNTUzNSwtOTQxMTY4NTA5LDE0ND
+g3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMz
+NCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ==
 -->
