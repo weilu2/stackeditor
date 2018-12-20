@@ -47,7 +47,9 @@ $$
 $$
 (x_1,y_1), \ldots, (x_l, y_l)
 $$
-这每一组数据的概率就是葡萄的分布 $F(x)$ 和红酒品质的分布 ，却始终无法获取到我们的酿造工艺，因此，他们打算模仿我们的酿造工艺进行生产，根据
+这每一组数据的概率就是葡萄的分布 $F(x)$ 和红酒品质的分布 $F(y|x)$ 共同产生的联合概率 $F(x,y) = F(x)F(y|x)$。
+
+却始终无法获取到我们的酿造工艺，因此，他们打算模仿我们的酿造工艺进行生产，根据用于酿造的葡萄的情况和红酒的品质来矫正他们的酿造工艺。
 
 # 2. 解决方法
 
@@ -60,7 +62,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbODQwOTQ4NDA0LC05NDExNjg1MDksMTQ0OD
-c1NTAzLC05OTA2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0
-LC0xMzY5MTE5NDI4LDcwMzUyODQ5M119
+eyJoaXN0b3J5IjpbLTkyNTI1NDA2OCwtOTQxMTY4NTA5LDE0ND
+g3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMz
+NCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ==
 -->
