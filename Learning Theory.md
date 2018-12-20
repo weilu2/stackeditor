@@ -1,6 +1,7 @@
 # 目录
 [1. 学习问题](#学习问题)
 　　[1.1. 学习模型](#学习模型)
+　　[]
     
  问题定义
   解决方法
@@ -62,7 +63,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTkyNTI1NDA2OCwtOTQxMTY4NTA5LDE0ND
-g3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMz
-NCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ==
+eyJoaXN0b3J5IjpbMTQxMjMzNjg4LC05NDExNjg1MDksMTQ0OD
+c1NTAzLC05OTA2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0
+LC0xMzY5MTE5NDI4LDcwMzUyODQ5M119
 -->
