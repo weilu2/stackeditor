@@ -43,8 +43,7 @@ $$
 
 将采集到的葡萄送到酿造车间中进行生产酿造酒相当于目标函数产生 $y$。葡萄酿造出来的红酒可能会有不同的品质，即使是完全相同的两个葡萄，经过一系列的酿造过程产生的酒的品质也可能是不同的，那么就相当于酿造的过程本身也包含某种分布规律，并且酿酒的过程提供的葡萄的不同，对酒的品质是有很大影响的，因此这个酒的品质应该是一个依赖于输入葡萄的条件分布 $F(y|x)$。
 
-这样，将我们的酒庄最终生产的酒
-
+我们酒庄的酒卖的很好，现在有人想要研究破解我们的酿造工艺，danshi
 
 # 2. 解决方法
 
@@ -57,7 +56,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTMzNDM1OTY5NCwtOTQxMTY4NTA5LDE0ND
+eyJoaXN0b3J5IjpbLTQzMTQ2MjE0NSwtOTQxMTY4NTA5LDE0ND
 g3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMz
 NCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ==
 -->
