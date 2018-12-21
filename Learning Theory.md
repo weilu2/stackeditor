@@ -12,20 +12,14 @@
 
 　　第一种方法是基于所选函数的品质可以用风险泛函来评估的思路。在这种思路下从给定函数集中选取逼近函数就是[基于经验数据最小化风险泛函的问题](#基于经验数据最小化风险泛函的问题)。
 
-　　第二种方法是基于估计所期望的随机依赖关系。在仅已知方程某些成分的近似值的情况下，这种方法需要解积分方程。但解积分方程得到的函数能够提供比这些问题本身所需的更多的细节。weizhexie
+　　第二种方法是基于估计所期望的随机依赖关系。在仅已知方程某些成分的近似值的情况下，这种方法需要解积分方程。但解积分方程得到的函数能够提供比这些问题本身所需的更多的细节。为这些细节需要解不适定问题。
 
 
-# 目录
-[1. 学习问题](#学习问题)
-　　[1.1. 学习模型](#学习模型)
-　　[1.2. 解析](#解析)
-[2. 解决方法](#解决方法)
 
-学习原理描述学习问题以及问题的解决方法。
 
 # 学习问题
 
-依据经验数据选取所期望的依赖关系的问题。
+学习问题的一般模型。
 
 ## 1.1. 学习模型
 
@@ -85,9 +79,9 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTE1NDE2NjM4MDgsLTE0MzcyNjE2OTEsMT
-IxNjU3Njc3MSwzOTc0NDQyNjEsLTEwMTYzOTg4MjEsMTk4MDY4
-MDAxNSwxNzMzODI1NTM1LC05NDExNjg1MDksMTQ0ODc1NTAzLC
-05OTA2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5
-MTE5NDI4LDcwMzUyODQ5M119
+eyJoaXN0b3J5IjpbLTY2ODk3MjU2OCwtMTQzNzI2MTY5MSwxMj
+E2NTc2NzcxLDM5NzQ0NDI2MSwtMTAxNjM5ODgyMSwxOTgwNjgw
+MDE1LDE3MzM4MjU1MzUsLTk0MTE2ODUwOSwxNDQ4NzU1MDMsLT
+k5MDY3NTgxMiwtMzAyMDU0ODYwLDEwOTkwNTkzMzQsLTEzNjkx
+MTk0MjgsNzAzNTI4NDkzXX0=
 -->
