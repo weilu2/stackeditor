@@ -8,7 +8,7 @@
 
 # 正文
 
-[学习问题](#学习问题)是指依据经验数据选取所期望的依赖关系的问题。
+[学习问题](#学习问题)是指依据经验数据选取所期望的依赖关系的问题。这里我们介绍两种结局学习问题 
 
 
 # 目录
@@ -79,7 +79,7 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIzNDc2NzkxMCwxMjE2NTc2NzcxLDM5Nz
+eyJoaXN0b3J5IjpbLTQ0MDU4MDIxNiwxMjE2NTc2NzcxLDM5Nz
 Q0NDI2MSwtMTAxNjM5ODgyMSwxOTgwNjgwMDE1LDE3MzM4MjU1
 MzUsLTk0MTE2ODUwOSwxNDQ4NzU1MDMsLTk5MDY3NTgxMiwtMz
 AyMDU0ODYwLDEwOTkwNTkzMzQsLTEzNjkxMTk0MjgsNzAzNTI4
