@@ -1,3 +1,5 @@
+文档整体结构采用摘要+主题的形式编写。由于要阐述一个问题以及其解决方式
+
 # 目录
 [1. 学习问题](#学习问题)
 　　[1.1. 学习模型](#学习模型)
@@ -66,8 +68,8 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTEwMTYzOTg4MjEsMTk4MDY4MDAxNSwxNz
-MzODI1NTM1LC05NDExNjg1MDksMTQ0ODc1NTAzLC05OTA2NzU4
-MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5MTE5NDI4LD
-cwMzUyODQ5M119
+eyJoaXN0b3J5IjpbLTUzMTkxNTEzNCwtMTAxNjM5ODgyMSwxOT
+gwNjgwMDE1LDE3MzM4MjU1MzUsLTk0MTE2ODUwOSwxNDQ4NzU1
+MDMsLTk5MDY3NTgxMiwtMzAyMDU0ODYwLDEwOTkwNTkzMzQsLT
+EzNjkxMTk0MjgsNzAzNTI4NDkzXX0=
 -->
