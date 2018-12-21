@@ -1,8 +1,13 @@
+# 文档说明
+
 文档整体结构采用摘要+主题的形式编写。由于要阐述一个问题以及其解决方式会有很深的问题，一层套一层，导致文章结构不好组织，结构树太深。因此将抽象描述和具体内容描述进行剥离。
 
 文档第一部分进行抽象的整体描述，说明问题是什么，解决思路是什么，解决过程中会碰到什么新的问题，又是如何解决的。问题的抽象是如何的，问题的推广是如何的等等这一系列内容，并且整体以良好的组织结构描述。
 
 文档第二部分按照主题进行具体阐述，主题的规模根据具体主题内容进行调整。
+
+# 正文
+
 
 
 
@@ -74,8 +79,9 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTIxNjU3Njc3MSwzOTc0NDQyNjEsLTEwMT
-YzOTg4MjEsMTk4MDY4MDAxNSwxNzMzODI1NTM1LC05NDExNjg1
-MDksMTQ0ODc1NTAzLC05OTA2NzU4MTIsLTMwMjA1NDg2MCwxMD
-k5MDU5MzM0LC0xMzY5MTE5NDI4LDcwMzUyODQ5M119
+eyJoaXN0b3J5IjpbNzI5NTEzODQxLDEyMTY1NzY3NzEsMzk3ND
+Q0MjYxLC0xMDE2Mzk4ODIxLDE5ODA2ODAwMTUsMTczMzgyNTUz
+NSwtOTQxMTY4NTA5LDE0NDg3NTUwMywtOTkwNjc1ODEyLC0zMD
+IwNTQ4NjAsMTA5OTA1OTMzNCwtMTM2OTExOTQyOCw3MDM1Mjg0
+OTNdfQ==
 -->
