@@ -12,6 +12,8 @@
 
 　　第一种方法是基于所选函数的品质可以用风险泛函来评估的思路。在这种思路下从给定函数集中选取逼近函数就是[基于经验数据最小化风险泛函的问题](#基于经验数据最小化风险泛函的问题)。
 
+　　第二种方法是基于估计所期望的随机依赖关系。在仅已知方程某些成分的近似值的情况下，这种方法需要解
+
 
 # 目录
 [1. 学习问题](#学习问题)
@@ -83,9 +85,9 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbMTEzNTMxMTIzLC0xNDM3MjYxNjkxLDEyMT
-Y1NzY3NzEsMzk3NDQ0MjYxLC0xMDE2Mzk4ODIxLDE5ODA2ODAw
-MTUsMTczMzgyNTUzNSwtOTQxMTY4NTA5LDE0NDg3NTUwMywtOT
-kwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMzNCwtMTM2OTEx
-OTQyOCw3MDM1Mjg0OTNdfQ==
+eyJoaXN0b3J5IjpbLTEyNzAxMTQ2MzksLTE0MzcyNjE2OTEsMT
+IxNjU3Njc3MSwzOTc0NDQyNjEsLTEwMTYzOTg4MjEsMTk4MDY4
+MDAxNSwxNzMzODI1NTM1LC05NDExNjg1MDksMTQ0ODc1NTAzLC
+05OTA2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5
+MTE5NDI4LDcwMzUyODQ5M119
 -->
