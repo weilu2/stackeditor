@@ -66,17 +66,17 @@ $$
 用所期望的品质来选取一个函数，就相当于在所有可能的函数中，用我们自定义的一个度量标准来选择一个符合我们足量标准的最合适的函数。
 
 形式上：在向量空间 $R^n$ 的子集 $Z$ 上，给定一个函数集 $\{g(z)\}, z \in Z$，定义一个泛函：
->1.1
 $$
 C = C(g(z)
+\tag{1.1}
 $$
 
 该泛函就是选取函数的度量标准。然后从函数集 $\{g(z)\}$ 中找出一个能够最小化
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIxODc3NzkyOSw0ODMzMzM1MjcsLTcyMj
-IxMDcwLC0xNDM3MjYxNjkxLDEyMTY1NzY3NzEsMzk3NDQ0MjYx
-LC0xMDE2Mzk4ODIxLDE5ODA2ODAwMTUsMTczMzgyNTUzNSwtOT
-QxMTY4NTA5LDE0NDg3NTUwMywtOTkwNjc1ODEyLC0zMDIwNTQ4
-NjAsMTA5OTA1OTMzNCwtMTM2OTExOTQyOCw3MDM1Mjg0OTNdfQ
-==
+eyJoaXN0b3J5IjpbLTIyMjUzMTM0OSwtMjE4Nzc3OTI5LDQ4Mz
+MzMzUyNywtNzIyMjEwNzAsLTE0MzcyNjE2OTEsMTIxNjU3Njc3
+MSwzOTc0NDQyNjEsLTEwMTYzOTg4MjEsMTk4MDY4MDAxNSwxNz
+MzODI1NTM1LC05NDExNjg1MDksMTQ0ODc1NTAzLC05OTA2NzU4
+MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5MTE5NDI4LD
+cwMzUyODQ5M119
 -->
