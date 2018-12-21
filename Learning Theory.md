@@ -63,23 +63,11 @@ $$
 
 # 基于经验数据最小化风险泛函的问题
 
-## 2.1. 模仿目标函数
 
-### 2.1.1. 最小化经验数据风险泛函的问题
-
-这个问题可以表示为一个模型：在所有可能的函数中，找出一个函数，能够以最佳的方式满足给定的度量标准。
-
-
-
-直接最小化泛函
-
-基于经验数据最小化泛函
-
-## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTIwMzU5MTUwNjUsLTE0MzcyNjE2OTEsMT
-IxNjU3Njc3MSwzOTc0NDQyNjEsLTEwMTYzOTg4MjEsMTk4MDY4
-MDAxNSwxNzMzODI1NTM1LC05NDExNjg1MDksMTQ0ODc1NTAzLC
-05OTA2NzU4MTIsLTMwMjA1NDg2MCwxMDk5MDU5MzM0LC0xMzY5
-MTE5NDI4LDcwMzUyODQ5M119
+eyJoaXN0b3J5IjpbLTg5MzQ4Mjk5MCwtMTQzNzI2MTY5MSwxMj
+E2NTc2NzcxLDM5NzQ0NDI2MSwtMTAxNjM5ODgyMSwxOTgwNjgw
+MDE1LDE3MzM4MjU1MzUsLTk0MTE2ODUwOSwxNDQ4NzU1MDMsLT
+k5MDY3NTgxMiwtMzAyMDU0ODYwLDEwOTkwNTkzMzQsLTEzNjkx
+MTk0MjgsNzAzNTI4NDkzXX0=
 -->
