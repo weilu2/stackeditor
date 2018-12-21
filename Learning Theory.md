@@ -21,7 +21,7 @@
 
 学习问题的一般模型。
 
-## 1.1. 学习模型
+## 1. 学习模型
 
 学习模型包含三部分组成：
 1. 数据生成器（G）
@@ -44,7 +44,7 @@ $$
 1. 模仿目标函数：试图构造一个函数，对一个给定的生成器 G，该函数可以对目标函数输出提供最佳的预测效果；
 2. 辨识目标函数：试图构造一个非常接近于目标函数的函数；
 
-## 1.2. 解析
+## 2. 解析
 比如说我们现在经营着一个酒庄，我从一片果园中采了一些葡萄，然后经过一系列酿造工艺，生产出了不同品质的红酒。
 
 从果园中采摘葡萄的过程就相当于生成器生成 $x$，由于整个果园中不同品质的葡萄分布肯定是有一定的分布特点的，我们假设这个分布是 $F(x)$，而我每次采摘一颗葡萄是没有任何挑选的，并且前后葡萄的采摘过程是没有影响的，这样我每次采摘葡萄就是根据分布函数 $F(x)$ 进行的独立同分布采集。
@@ -65,9 +65,9 @@ $$
 
 
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTg5MzQ4Mjk5MCwtMTQzNzI2MTY5MSwxMj
-E2NTc2NzcxLDM5NzQ0NDI2MSwtMTAxNjM5ODgyMSwxOTgwNjgw
-MDE1LDE3MzM4MjU1MzUsLTk0MTE2ODUwOSwxNDQ4NzU1MDMsLT
-k5MDY3NTgxMiwtMzAyMDU0ODYwLDEwOTkwNTkzMzQsLTEzNjkx
-MTk0MjgsNzAzNTI4NDkzXX0=
+eyJoaXN0b3J5IjpbLTcyMjIxMDcwLC0xNDM3MjYxNjkxLDEyMT
+Y1NzY3NzEsMzk3NDQ0MjYxLC0xMDE2Mzk4ODIxLDE5ODA2ODAw
+MTUsMTczMzgyNTUzNSwtOTQxMTY4NTA5LDE0NDg3NTUwMywtOT
+kwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMzNCwtMTM2OTEx
+OTQyOCw3MDM1Mjg0OTNdfQ==
 -->
