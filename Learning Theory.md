@@ -10,7 +10,7 @@
 
 　　[学习问题](#学习问题)是指依据经验数据选取所期望的依赖关系的问题。这里我们介绍两种解决学习问题的方法。
 
-　　第一种方法是基于所选函数的品质可以用风险泛函来评估的思路。在这种思路下从给定函数集中选取逼近函数就是[基于经验数据最小化风险泛函的问题]。
+　　第一种方法是基于所选函数的品质可以用风险泛函来评估的思路。在这种思路下从给定函数集中选取逼近函数就是[基于经验数据最小化风险泛函的问题](#基于经验数据最小化风险泛函的问题)。
 
 
 # 目录
@@ -67,6 +67,8 @@ $$
 
 上面提到过学习机器追求的两个不同的目标，对应了两类解决问题的思路。模仿目标函数和辨识目标函数。第一种情况下，对于生成器给定的 $x$，通过预测目标函数的输出来得到最佳结果；而第二种情况下，得到好的预测结果是不够的，还必须构造出一个函数，这个函数在给定度量下非常接近于目标函数。
 
+# 基于经验数据最小化风险泛函的问题
+
 ## 2.1. 模仿目标函数
 
 ### 2.1.1. 最小化经验数据风险泛函的问题
@@ -81,9 +83,9 @@ $$
 
 ## 2.2. 辨识目标函数
 <!--stackedit_data:
-eyJoaXN0b3J5IjpbLTU5MzE0MjUyMCwtMTQzNzI2MTY5MSwxMj
-E2NTc2NzcxLDM5NzQ0NDI2MSwtMTAxNjM5ODgyMSwxOTgwNjgw
-MDE1LDE3MzM4MjU1MzUsLTk0MTE2ODUwOSwxNDQ4NzU1MDMsLT
-k5MDY3NTgxMiwtMzAyMDU0ODYwLDEwOTkwNTkzMzQsLTEzNjkx
-MTk0MjgsNzAzNTI4NDkzXX0=
+eyJoaXN0b3J5IjpbMTEzNTMxMTIzLC0xNDM3MjYxNjkxLDEyMT
+Y1NzY3NzEsMzk3NDQ0MjYxLC0xMDE2Mzk4ODIxLDE5ODA2ODAw
+MTUsMTczMzgyNTUzNSwtOTQxMTY4NTA5LDE0NDg3NTUwMywtOT
+kwNjc1ODEyLC0zMDIwNTQ4NjAsMTA5OTA1OTMzNCwtMTM2OTEx
+OTQyOCw3MDM1Mjg0OTNdfQ==
 -->
